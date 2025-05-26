@@ -14,6 +14,12 @@
                     </div>
                     
                     <!-- Session Status -->
+                    @if(session('status'))
+                        <div class="alert alert-success mb-3">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    
                     <x-auth-session-status class="mb-3" :status="session('status')" />
                     
                     <form method="POST" action="{{ route('login') }}">
@@ -37,7 +43,11 @@
                             <x-input-error :messages="$errors->get('password')" class="mt-1 text-danger small" />
                         </div>
                         
-                        
+                        <!-- Remember Me -->
+                        <div class="mb-3 form-check">
+                            <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
+                            <label for="remember_me" class="form-check-label small">Remember me</label>
+                        </div>
                         
                         <button type="submit" class="btn btn-teal w-100 py-2 font-weight-bold">
                             {{ __('Login') }}
@@ -111,6 +121,15 @@
     
     hr {
         border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .alert-success {
+        background-color: #d1fae5;
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
     }
 </style>
 @endpush
