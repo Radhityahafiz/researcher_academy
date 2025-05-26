@@ -71,7 +71,7 @@
                             @error('file')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <small class="text-muted">Accepted formats: PDF, DOC, DOCX, PPT, PPTX, TXT</small>
+                            <small class="text-muted">Accepted formats: PDF, DOCX</small>
                         </div>
                         
                         <div class="mb-3" id="external_link_field" style="display: none;">

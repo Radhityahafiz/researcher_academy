@@ -5,46 +5,42 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
-                                    <p class="mb-4">We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!</p>
-                                </div>
-                                
-                                <!-- Session Status -->
-                                <x-auth-session-status class="mb-4" :status="session('status')" />
-                                
-                                <form method="POST" action="{{ route('password.email') }}" class="user">
-                                    @csrf
-                                    
-                                    <div class="form-group">
-                                        <x-text-input id="email" type="email" name="email" :value="old('email')" 
-                                            class="form-control form-control-user"
-                                            placeholder="Enter Email Address..." required autofocus />
-                                        <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
-                                    </div>
-                                    
-                                    <button type="submit" class="btn btn-teal btn-user btn-block">
-                                        {{ __('Email Password Reset Link') }}
-                                    </button>
-                                </form>
-                                
-                                <hr>
-                                
-                                <div class="text-center">
-                                    <a class="small" href="{{ route('register') }}">Create an Account!</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
-                                </div>
-                            </div>
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0" style="border-radius: 12px;">
+                <div class="card-body p-4">
+                    <div class="text-center mb-3">
+                        <img src="{{ asset('Backend/img/logo_HRP.png') }}" alt="HRP Logo" style="width: 60px;">
+                        <h2 class="h5 mt-2 mb-1 font-weight-bold">Reset Password</h2>
+                        <p class="small text-muted">Enter your email to receive reset link</p>
+                    </div>
+                    
+                    <!-- Session Status -->
+                    <x-auth-session-status class="mb-3 small" :status="session('status')" />
+                    
+                    <form method="POST" action="{{ route('password.email') }}">
+                        @csrf
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label small font-weight-bold">Email Address</label>
+                            <x-text-input id="email" type="email" name="email" :value="old('email')" 
+                                class="form-control form-control-sm"
+                                placeholder="your@email.com" required autofocus />
+                            <x-input-error :messages="$errors->get('email')" class="mt-1 text-danger small" />
                         </div>
+                        
+                        <button type="submit" class="btn btn-teal w-100 btn-sm py-2 mb-3">
+                            {{ __('Send Reset Link') }}
+                        </button>
+                    </form>
+                    
+                    <div class="text-center small">
+                        <a class="text-decoration-none text-teal font-weight-bold" href="{{ route('login') }}">
+                            Back to Login
+                        </a>
+                        <span class="mx-2 text-muted">|</span>
+                        <a class="text-decoration-none text-teal font-weight-bold" href="{{ route('register') }}">
+                            Create Account
+                        </a>
                     </div>
                 </div>
             </div>
@@ -55,21 +51,35 @@
 
 @push('styles')
 <style>
-    .bg-password-image {
-        background: url("{{ asset('img/undraw_forgot_password_re_hxwm.svg') }}");
-        background-position: center;
-        background-size: cover;
+    .bg-gradient-teal {
+        background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%);
+        min-height: 100vh;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
     }
-
+    
     .btn-teal {
-        background: linear-gradient(to right, #2980b9, #1abc9c);
+        background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%);
         color: white;
         border: none;
+        border-radius: 4px;
+        font-size: 0.875rem;
+        transition: all 0.2s;
     }
 
     .btn-teal:hover {
-        background: linear-gradient(to right, #1abc9c, #2980b9);
-        color: white;
+        background: linear-gradient(135deg, #16a085 0%, #2980b9 100%);
+    }
+    
+    .form-control-sm {
+        font-size: 0.875rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+    }
+    
+    .text-teal {
+        color: #1abc9c;
     }
 </style>
 @endpush

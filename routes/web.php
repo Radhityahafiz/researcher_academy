@@ -7,47 +7,91 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\ParticipantController;
 use App\Http\Middleware\CheckRole;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Halaman awal (Welcome)
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
-
+// Grup route untuk user yang sudah login & verifikasi email
 Route::middleware(['auth', 'verified'])->group(function () {
+    
+    // Dashboard - hanya untuk mentor
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard')
+        ->middleware(CheckRole::class . ':mentor');
 
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Grup route khusus mentor/admin
+    Route::middleware(CheckRole::class . ':mentor')->group(function () {
+        // Materials management - kecuali show
+        Route::resource('materials', MaterialController::class)->except(['show']);
+        
+        // Videos management - kecuali show
+        Route::resource('videos', VideoController::class)->except(['show']);
 
-    // Materials (only for mentor)
-    Route::resource('materials', MaterialController::class)->middleware(CheckRole::class . ':mentor');
+        // Categories management
+        Route::resource('categories', CategoryController::class);
 
-    // Videos (only for mentor)
-    Route::resource('videos', VideoController::class)->middleware(CheckRole::class . ':mentor');
+        // Quiz Questions management
+        Route::get('/quizzes/{quiz}/questions/create', [QuizController::class, 'createQuestion'])
+            ->name('quizzes.questions.create');
+        Route::post('/quizzes/{quiz}/questions', [QuizController::class, 'storeQuestion'])
+            ->name('quizzes.questions.store');
+        Route::get('/quizzes/{quiz}/questions/{question}/edit', [QuizController::class, 'editQuestion'])
+            ->name('quizzes.questions.edit');
+        Route::put('/quizzes/{quiz}/questions/{question}', [QuizController::class, 'updateQuestion'])
+            ->name('quizzes.questions.update');
+        Route::delete('/quizzes/{quiz}/questions/{question}', [QuizController::class, 'destroyQuestion'])
+            ->name('quizzes.questions.destroy');
+    });
 
-    // Categories (only for mentor)
-    Route::resource('categories', CategoryController::class)->middleware(CheckRole::class . ':mentor');
-
-    // Quizzes (accessible to all logged-in users)
+    // Quizzes - untuk semua user yang sudah login
     Route::resource('quizzes', QuizController::class);
     Route::get('/quizzes/{quiz}/start', [QuizController::class, 'startQuiz'])->name('quizzes.start');
     Route::post('/quizzes/{quiz}/submit', [QuizController::class, 'submitQuiz'])->name('quizzes.submit');
     Route::get('/quizzes/{attempt}/result', [QuizController::class, 'quizResult'])->name('quizzes.result');
 
-    // Quiz Questions (assuming only mentor can manage)
-    Route::get('/quizzes/{quiz}/questions/create', [QuizController::class, 'createQuestion'])->name('quizzes.questions.create')->middleware(CheckRole::class . ':mentor');
-    Route::post('/quizzes/{quiz}/questions', [QuizController::class, 'storeQuestion'])->name('quizzes.questions.store')->middleware(CheckRole::class . ':mentor');
-    Route::get('/quizzes/{quiz}/questions/{question}/edit', [QuizController::class, 'editQuestion'])->name('quizzes.questions.edit')->middleware(CheckRole::class . ':mentor');
-    Route::put('/quizzes/{quiz}/questions/{question}', [QuizController::class, 'updateQuestion'])->name('quizzes.questions.update')->middleware(CheckRole::class . ':mentor');
-    Route::delete('/quizzes/{quiz}/questions/{question}', [QuizController::class, 'destroyQuestion'])->name('quizzes.questions.destroy')->middleware(CheckRole::class . ':mentor');
+    // Route untuk melihat materi dan video (admin/mentor view)
+    Route::middleware(CheckRole::class . ':mentor')->group(function () {
+        Route::get('/admin/materials/{material}', [MaterialController::class, 'show'])
+            ->name('materials.show');
+        
+        Route::get('/admin/videos/{video}', [VideoController::class, 'show'])
+            ->name('videos.show');
+    });
 });
 
-// Profile (only for authenticated users)
+// Route profile - untuk semua user login
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Auth routes (default from Breeze or Laravel UI)
+// Route khusus peserta
+Route::middleware(['auth'])->group(function () {
+    Route::get('/materials/{material}', [ParticipantController::class, 'showMaterial'])
+        ->name('participant.materials.show');
+
+    Route::get('/videos/{video}', [ParticipantController::class, 'showVideo'])
+        ->name('participant.videos.show');
+
+Route::prefix('participant')->group(function () {
+    Route::get('/quizzes', [ParticipantController::class, 'quizIndex'])
+        ->name('participant.quizzes.index');
+    Route::get('/quizzes/{quiz}', [ParticipantController::class, 'showQuiz'])
+        ->name('participant.quizzes.show');
+    Route::get('/quizzes/{quiz}/start', [ParticipantController::class, 'startQuiz'])
+        ->name('participant.quizzes.start');
+    Route::post('/quizzes/{quiz}/submit', [ParticipantController::class, 'submitQuiz'])
+        ->name('participant.quizzes.submit');
+    Route::get('/quizzes/{attempt}/result', [ParticipantController::class, 'quizResult'])
+        ->name('participant.quizzes.result');
+    Route::post('/quizzes/{quiz}/save-progress', [ParticipantController::class, 'saveProgress'])->name('participant.quizzes.save-progress');
+    
+});
+});
+
+// Route auth bawaan dari Laravel Breeze / UI
 require __DIR__.'/auth.php';

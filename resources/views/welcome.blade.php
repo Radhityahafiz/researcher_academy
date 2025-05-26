@@ -27,46 +27,228 @@
   <!-- Main CSS File -->
   <link href="{{ asset('frontend/assets/css/main.css') }}" rel="stylesheet">
 
-  <!-- Template Info -->
-  <!-- =======================================================
-  * Template Name: Mentor
-  * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <style>
+    /* Enhanced Card Styles */
+    .content-card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .content-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .content-card .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .content-card .card-title {
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    
+    .content-card .card-text {
+      color: #7f8c8d;
+      flex-grow: 1;
+      margin-bottom: 15px;
+    }
+    
+    .content-card .btn-primary {
+      align-self: flex-start;
+      background-color: #1abc9c;
+      border-color: #1abc9c;
+    }
+    
+    .content-card .btn-primary:hover {
+      background-color: #16a085;
+      border-color: #16a085;
+    }
+    
+    /* Section Styles */
+    .content-section {
+      padding: 80px 0;
+    }
+    
+    .section-header {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    
+    .section-header h2 {
+      font-weight: 800;
+      color: #2c3e50;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: #1abc9c;
+    }
+    
+    /* Pagination Styles */
+    .pagination-container {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .pagination .page-item.active .page-link {
+      background-color: #1abc9c;
+      border-color: #1abc9c;
+    }
+    
+    .pagination .page-link {
+      color: #1abc9c;
+    }
+    
+    /* Section Navigation Styles */
+    .section-container {
+      position: relative;
+    }
+    
+    .section-nav {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .section-nav-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .section-nav-btn:hover {
+      background: #1abc9c;
+      color: white;
+    }
+    
+    /* Horizontal Scroll Styles */
+    .section-scroll {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 20px;
+    }
+    
+    .section-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .content-col {
+      flex: 0 0 25%;
+      padding: 0 15px;
+    }
+    
+    /* Enhanced Pagination */
+    .pagination-lg .page-link {
+      padding: 0.75rem 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .content-col {
+        flex: 0 0 50%;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .content-section {
+        padding: 60px 0;
+      }
+      
+      .section-header h2 {
+        font-size: 1.8rem;
+      }
+      
+      .content-col {
+        flex: 0 0 100%;
+      }
+      
+      .section-nav {
+        position: static;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body class="index-page">
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <img src="{{ asset('frontend/assets/img/logo_HRP.png') }}" alt="HRP Logo" class="img-fluid">
-      </a>
+<header id="header" class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center">
+    <a href="{{ route('welcome') }}" class="logo d-flex align-items-center me-auto">
+      <img src="{{ asset('frontend/assets/img/logo_HRP.png') }}" alt="HRP Logo" class="img-fluid">
+    </a>
 
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="courses.html">Mentor</a></li>
-          <li class="dropdown">
-            <a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li><a href="#">Dropdown 2</a></li>
-            </ul>
-          </li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="{{ route('welcome') }}" class="active">Home</a></li>
+        <li><a href="#materi">Materi</a></li>
+        <li><a href="#video-mentoring">Video</a></li>
+        <li><a href="#quizz">Quiz</a></li>
+        @auth
+          <li><a href="{{ route('profile.edit') }}">Profile</a></li>
+        @endauth
+        
+        <!-- Mobile-only auth buttons -->
+        <li class="d-xl-none mobile-auth-buttons">
+          @auth
+            <form method="POST" action="{{ route('logout') }}" class="w-100">
+              @csrf
+              <button type="submit" class="btn btn-danger w-100">Logout</button>
+            </form>
+          @else
+            <a href="{{ route('login') }}" class="btn btn-primary w-100">Login</a>
+          @endauth
+        </li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
 
-      <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
-    </div>
-  </header>
-  <!-- End Header -->
+    <!-- Desktop-only auth buttons -->
+    @auth
+      <form method="POST" action="{{ route('logout') }}" class="d-none d-xl-block">
+        @csrf
+        <button type="submit" class="btn-getstarted">Logout</button>
+      </form>
+    @else
+      <a class="btn-getstarted d-none d-xl-block" href="{{ route('login') }}">Login</a>
+    @endauth
+  </div>
+</header>
+<!-- End Header -->
 
   <main class="main">
 
@@ -78,7 +260,11 @@
         <div class="hero-text" data-aos="fade-up">
           <h2>Research Academy</h2>
           <p>Sumber Ilmu, Sahabat Magangmu</p>
-          <a href="courses.html" class="btn-get-started">Get Started</a>
+          @auth
+            <p class="welcome-message">Selamat datang, {{ Auth::user()->full_name }}!</p>
+          @else
+            <a href="{{ route('register') }}" class="btn-get-started">Daftar Sekarang</a>
+          @endauth
         </div>
 
         <!-- Hero Image -->
@@ -95,186 +281,170 @@
     <!-- End Hero Section -->
 
     <!-- ======= Materi Section ======= -->
-<section id="materi" class="materi section">
-  <div class="container">
-    <!-- Section Title -->
-    <div class="section-title" data-aos="fade-up">
-      <p>Materi Magang</p>
-      <h2></h2>
-    </div>
-
-    <div class="row">
-      <!-- Materi Item 1 -->
-      <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="card h-100 materi-card">
-          <div class="card-body">
-            <h5 class="card-title">Website Design</h5>
-            <p class="card-text">Pelajari dasar-dasar desain website modern dan responsive untuk kebutuhan bisnis saat ini.</p>
-            <a href="course-details.html" class="btn btn-primary">Pelajari Sekarang</a>
+    <section id="materi" class="materi content-section">
+      <div class="container">
+        <div class="section-container">
+          <!-- Section Header -->
+          <div class="section-header" data-aos="fade-up">
+            <h2>Materi Magang</h2>
+            <p class="mt-3">Kumpulan materi pembelajaran untuk mendukung magang Anda</p>
           </div>
-        </div>
-      </div>
-      <!-- End Materi Item -->
-
-      <!-- Materi Item 2 -->
-      <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="card h-100 materi-card">
-          <div class="card-body">
-            <h5 class="card-title">Frontend Development</h5>
-            <p class="card-text">Kuasi teknologi frontend terkini seperti React, Vue, dan Tailwind CSS.</p>
-            <a href="course-details.html" class="btn btn-primary">Pelajari Sekarang</a>
-          </div>
-        </div>
-      </div>
-      <!-- End Materi Item -->
-
-      <!-- Materi Item 3 -->
-      <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
-        <div class="card h-100 materi-card">
-          <div class="card-body">
-            <h5 class="card-title">Backend Development</h5>
-            <p class="card-text">Pelajari pembuatan API dan manajemen database dengan teknologi terbaru.</p>
-            <a href="course-details.html" class="btn btn-primary">Pelajari Sekarang</a>
-          </div>
-        </div>
-      </div>
-      <!-- End Materi Item -->
-    </div>
-  </div>
-</section>
-<!-- End Materi Section -->
-
-<!-- ======= Video Mentoring Section ======= -->
-<section id="video-mentoring" class="video-mentoring section">
-  <div class="container">
-    <!-- Section Title -->
-    <div class="section-title" data-aos="fade-up">
-      <p>Video Mentoring</p>
-      <h2></h2>
-    </div>
-
-    <div class="row">
-      <!-- Video Item 1 -->
-      <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="card h-100 video-card">
-          <img src="{{ asset('frontend/assets/img/course-1.jpg') }}" class="card-img-top" alt="Website Design">
-          <div class="card-body">
-            <h5 class="card-title">Website Design</h5>
-            <p class="card-text">Video tutorial lengkap tentang prinsip-prinsip desain website modern.</p>
-            <a href="#" class="btn btn-primary">Tonton Video</a>
-          </div>
-        </div>
-      </div>
-      <!-- End Video Item -->
-
-      <!-- Video Item 2 -->
-      <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="card h-100 video-card">
-          <img src="{{ asset('frontend/assets/img/course-2.jpg') }}" class="card-img-top" alt="SEO Tutorial">
-          <div class="card-body">
-            <h5 class="card-title">SEO Optimization</h5>
-            <p class="card-text">Pelajari teknik SEO terbaru untuk meningkatkan ranking website Anda.</p>
-            <a href="#" class="btn btn-primary">Tonton Video</a>
-          </div>
-        </div>
-      </div>
-      <!-- End Video Item -->
-
-      <!-- Video Item 3 -->
-      <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
-        <div class="card h-100 video-card">
-          <img src="{{ asset('frontend/assets/img/course-3.jpg') }}" class="card-img-top" alt="Copywriting">
-          <div class="card-body">
-            <h5 class="card-title">Creative Copywriting</h5>
-            <p class="card-text">Teknik menulis konten yang menarik dan persuasif untuk bisnis digital.</p>
-            <a href="#" class="btn btn-primary">Tonton Video</a>
-          </div>
-        </div>
-      </div>
-      <!-- End Video Item -->
-    </div>
-  </div>
-</section>
-<!-- End Video Mentoring Section -->
-
-<!-- ======= Quizz Section ======= -->
-<section id="quizz" class="quizz section">
-  <div class="container">
-    <!-- Section Title -->
-    <div class="section-title" data-aos="fade-up">
-      <p>Quizz</p>
-      <h2></h2>
-    </div>
-
-    <div class="row">
-      <!-- Quizz Item 1 -->
-      <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="card h-100 quizz-card">
-          <img src="{{ asset('frontend/assets/img/course-1.jpg') }}" class="card-img-top" alt="Web Design Quiz">
-          <div class="card-body">
-            <h5 class="card-title">Web Design Quiz</h5>
-            <p class="card-text">Uji pemahaman Anda tentang prinsip-prinsip dasar desain web.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="badge bg-primary">10 Soal</span>
-              <a href="#" class="btn btn-outline-primary">Mulai Quiz</a>
+          <div class="section-nav">
+            <div class="section-nav-btn" onclick="scrollSectionLeft('materi-scroll')">
+              <i class="bi bi-chevron-left"></i>
+            </div>
+            <div class="section-nav-btn" onclick="scrollSectionRight('materi-scroll')">
+              <i class="bi bi-chevron-right"></i>
             </div>
           </div>
         </div>
-      </div>
-      <!-- End Quizz Item -->
 
-      <!-- Quizz Item 2 -->
-      <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="card h-100 quizz-card">
-          <img src="{{ asset('frontend/assets/img/course-2.jpg') }}" class="card-img-top" alt="SEO Quiz">
-          <div class="card-body">
-            <h5 class="card-title">SEO Quiz</h5>
-            <p class="card-text">Tes pengetahuan Anda tentang Search Engine Optimization.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="badge bg-primary">15 Soal</span>
-              <a href="#" class="btn btn-outline-primary">Mulai Quiz</a>
+        <div class="row flex-nowrap section-scroll" id="materi-scroll">
+          @foreach($materials as $material)
+          <div class="col-md-4 col-lg-3 content-col mb-4">
+            <div class="card h-100 content-card">
+              <div class="card-body">
+                <h5 class="card-title">{{ $material->title }}</h5>
+                <p class="card-text">{{ Str::limit($material->description, 100) }}</p>
+                <a href="{{ auth()->check() ? (auth()->user()->isPeserta() ? route('participant.materials.show', $material) : route('materials.show', $material)) : route('login') }}" 
+                   class="btn btn-primary">
+                   Pelajari Sekarang
+                </a>
+              </div>
+            </div>
+          </div>
+          @endforeach
+        </div>
+
+        <!-- Pagination -->
+        @if($materials->hasPages())
+        <div class="pagination-container" data-aos="fade-up">
+          {{ $materials->onEachSide(2)->links('pagination::bootstrap-4') }}
+        </div>
+        @endif
+      </div>
+    </section>
+    <!-- End Materi Section -->
+
+    <!-- ======= Video Mentoring Section ======= -->
+    <section id="video-mentoring" class="video-mentoring content-section bg-light">
+      <div class="container">
+        <div class="section-container">
+          <!-- Section Header -->
+          <div class="section-header" data-aos="fade-up">
+            <h2>Video Mentoring</h2>
+            <p class="mt-3">Video pembelajaran dari mentor berpengalaman</p>
+          </div>
+          <div class="section-nav">
+            <div class="section-nav-btn" onclick="scrollSectionLeft('video-scroll')">
+              <i class="bi bi-chevron-left"></i>
+            </div>
+            <div class="section-nav-btn" onclick="scrollSectionRight('video-scroll')">
+              <i class="bi bi-chevron-right"></i>
             </div>
           </div>
         </div>
-      </div>
-      <!-- End Quizz Item -->
 
-      <!-- Quizz Item 3 -->
-      <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
-        <div class="card h-100 quizz-card">
-          <img src="{{ asset('frontend/assets/img/course-3.jpg') }}" class="card-img-top" alt="Copywriting Quiz">
-          <div class="card-body">
-            <h5 class="card-title">Copywriting Quiz</h5>
-            <p class="card-text">Evaluasi kemampuan menulis konten persuasif Anda.</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="badge bg-primary">12 Soal</span>
-              <a href="#" class="btn btn-outline-primary">Mulai Quiz</a>
+        <div class="row flex-nowrap section-scroll" id="video-scroll">
+          @foreach($videos as $video)
+          <div class="col-md-4 col-lg-3 content-col mb-4">
+            <div class="card h-100 content-card">
+              <div class="ratio ratio-16x9">
+                <iframe src="{{ $video->video_link }}" allowfullscreen></iframe>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ $video->title }}</h5>
+                <p class="card-text">{{ Str::limit($video->description, 100) }}</p>
+                <a href="{{ auth()->check() ? (auth()->user()->isPeserta() ? route('participant.videos.show', $video) : route('videos.show', $video)) : route('login') }}" 
+                   class="btn btn-primary">
+                   Tonton Lengkap
+                </a>
+              </div>
             </div>
           </div>
+          @endforeach
         </div>
+
+        <!-- Pagination -->
+        @if($videos->hasPages())
+        <div class="pagination-container" data-aos="fade-up">
+          {{ $videos->onEachSide(2)->links('pagination::bootstrap-4') }}
+        </div>
+        @endif
       </div>
-      <!-- End Quizz Item -->
+    </section>
+    <!-- End Video Mentoring Section -->
+
+    <!-- ======= Quiz Section ======= -->
+<section id="quizz" class="quizz content-section">
+    <div class="container">
+        <div class="section-container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Quiz Interaktif</h2>
+                <p class="mt-3">Uji pemahaman Anda dengan quiz</p>
+            </div>
+            <div class="section-nav">
+                <div class="section-nav-btn" onclick="scrollSectionLeft('quiz-scroll')">
+                    <i class="bi bi-chevron-left"></i>
+                </div>
+                <div class="section-nav-btn" onclick="scrollSectionRight('quiz-scroll')">
+                    <i class="bi bi-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row flex-nowrap section-scroll" id="quiz-scroll">
+            @foreach($quizzes as $quiz)
+            <div class="col-md-4 col-lg-3 content-col mb-4">
+                <div class="card h-100 content-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $quiz->title }}</h5>
+                        <p class="card-text">{{ Str::limit($quiz->description, 100) }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <span class="badge bg-primary">{{ $quiz->questions_count }} Soal</span>
+                            @auth
+                                @if(!$quiz->attempts()->where('user_id', auth()->id())->exists())
+                                    <a href="{{ route('participant.quizzes.start', $quiz) }}" class="btn btn-outline-primary">Mulai Quiz</a>
+                                @else
+                                    <a href="{{ route('participant.quizzes.result', $quiz->attempts()->where('user_id', auth()->id())->first()) }}" 
+                                       class="btn btn-outline-success">Lihat Hasil</a>
+                                @endif
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-outline-primary">Login untuk Quiz</a>
+                            @endauth
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        @if($quizzes->hasPages())
+        <div class="pagination-container" data-aos="fade-up">
+            {{ $quizzes->onEachSide(2)->links('pagination::bootstrap-4') }}
+        </div>
+        @endif
     </div>
-  </div>
 </section>
-<!-- End Quizz Section -->
+<!-- End Quiz Section -->
 
   </main>
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer position-relative light-background">
+<footer id="footer" class="footer position-relative light-background">
   <div class="container footer-top">
-    <div class="row gy-4">
+    <div class="row gy-4 align-items-start">
       <!-- About Column -->
       <div class="col-lg-4 col-md-6 footer-about">
-        <a href="index.html" class="logo d-flex align-items-center mb-3">
+        <a href="{{ route('welcome') }}" class="logo d-flex align-items-center mb-3">
           <img src="{{ asset('frontend/assets/img/logo_HRP.png') }}" alt="Mentor Logo" style="height: 40px;">
         </a>
         <div class="footer-contact pt-3">
-          <p><i class="bi bi-geo-alt-fill me-2"></i> A108 Adam Street, New York, NY 535022</p>
-          <p><i class="bi bi-telephone-fill me-2"></i> <strong>Phone:</strong> +1 5589 55488 55</p>
+          <p><i class="bi bi-geo-alt-fill me-2"></i> JL. Brigjend. H. Hasan Basri KM 11, Ray 5, Kel. Handil Bakti, Kec. Alalak, Kab. Barito Kuala, Prov. Kalimantan Selatan</p>
+          <p><i class="bi bi-telephone-fill me-2"></i> <strong>Telp:</strong> 0212 9343 888</p>
           <p><i class="bi bi-envelope-fill me-2"></i> <strong>Email:</strong> info@example.com</p>
         </div>
+
         <div class="social-links d-flex mt-4">
           <a href="#" class="me-2"><i class="bi bi-twitter-x"></i></a>
           <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
@@ -287,27 +457,27 @@
       <div class="col-lg-2 col-md-6 footer-links">
         <h4>Quick Links</h4>
         <ul>
-          <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+          <li><i class="bi bi-chevron-right"></i> <a href="{{ route('welcome') }}">Home</a></li>
+          <li><i class="bi bi-chevron-right"></i> <a href="#materi">Materi</a></li>
+          <li><i class="bi bi-chevron-right"></i> <a href="#video-mentoring">Video</a></li>
+          <li><i class="bi bi-chevron-right"></i> <a href="#quizz">Quiz</a></li>
+          @auth
+          <li><i class="bi bi-chevron-right"></i> <a href="{{ route('profile.edit') }}">Profile</a></li>
+          @endauth
         </ul>
       </div>
 
-      <!-- Newsletter Column -->
-      <div class="col-lg-6 col-md-12 footer-newsletter">
-        <h4>Our Newsletter</h4>
-        <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-        <form action="forms/newsletter.php" method="post" class="php-email-form mt-3">
-          <div class="input-group mb-3">
-            <input type="email" name="email" class="form-control" placeholder="Your email address" required>
-            <button class="btn btn-primary" type="submit">Subscribe</button>
+      <!-- Motivation Card Column -->
+      <div class="col-lg-6 col-md-12">
+        <div class="card border-0 shadow-lg p-4 rounded-4 bg-light h-100">
+          <div class="card-body d-flex flex-column justify-content-center h-100">
+            <h4 class="card-title text-primary mb-3">Motivasi Hari Ini</h4>
+            <blockquote class="blockquote mb-0">
+              <p class="fs-5 fst-italic">"Pendidikan adalah senjata paling ampuh yang bisa kamu gunakan untuk mengubah dunia."</p>
+              <footer class="blockquote-footer mt-2">Nelson Mandela</footer>
+            </blockquote>
           </div>
-          <div class="loading">Loading</div>
-          <div class="error-message"></div>
-          <div class="sent-message">Your subscription request has been sent. Thank you!</div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -316,13 +486,11 @@
   <div class="container-fluid copyright text-center py-3 mt-4">
     <div class="container">
       <p class="mb-0">© <span>Copyright</span> <strong class="px-1 sitename">Research Academy</strong> <span>All Rights Reserved</span></p>
-      <div class="credits mt-2">
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
     </div>
   </div>
 </footer>
-  <!-- End Footer -->
+<!-- End Footer -->
+
 
   <!-- Scroll Top Button -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -341,5 +509,83 @@
   <!-- Main JS File -->
   <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
+  <script>
+    // Fungsi untuk scroll horizontal
+    function scrollSectionLeft(sectionId) {
+      const container = document.getElementById(sectionId);
+      container.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+    
+    function scrollSectionRight(sectionId) {
+      const container = document.getElementById(sectionId);
+      container.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+    
+    // Inisialisasi scroll untuk setiap section
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile nav toggle
+      const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+      const navmenu = document.querySelector('#navmenu');
+      
+      if (mobileNavToggle && navmenu) {
+          mobileNavToggle.addEventListener('click', function(e) {
+              e.preventDefault();
+              navmenu.classList.toggle('mobile-nav-active');
+              this.classList.toggle('bi-list');
+              this.classList.toggle('bi-x');
+          });
+      }
+      
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              const targetId = this.getAttribute('href');
+              if (targetId === '#') return;
+              
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                  window.scrollTo({
+                      top: targetElement.offsetTop - 70,
+                      behavior: 'smooth'
+                  });
+                  
+                  // Close mobile menu if open
+                  if (navmenu.classList.contains('mobile-nav-active')) {
+                      navmenu.classList.remove('mobile-nav-active');
+                      mobileNavToggle.classList.toggle('bi-list');
+                      mobileNavToggle.classList.toggle('bi-x');
+                  }
+              }
+          });
+      });
+      
+      // Add shadow to header on scroll
+      const header = document.querySelector('#header');
+      if (header) {
+          window.addEventListener('scroll', function() {
+              if (window.scrollY > 100) {
+                  header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+              } else {
+                  header.style.boxShadow = 'none';
+              }
+          });
+      }
+      
+      // Inisialisasi scroll horizontal untuk section
+      ['materi-scroll', 'video-scroll', 'quiz-scroll'].forEach(sectionId => {
+        const container = document.getElementById(sectionId);
+        if (container) {
+          container.addEventListener('wheel', (e) => {
+            if (e.deltaY !== 0) {
+              e.preventDefault();
+              container.scrollLeft += e.deltaY;
+            }
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -25,36 +25,38 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+{
+    // Fill user data from validated request
+    $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+    // Save changes (removed email verification logic)
+    $request->user()->save();
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+    return Redirect::route('profile.edit')->with('status', 'Profile updated successfully!');
+}
 
     /**
      * Delete the user's account.
      */
     public function destroy(Request $request): RedirectResponse
     {
+        // Validasi password
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
 
         $user = $request->user();
 
+        // Logout user
         Auth::logout();
 
+        // Hapus user
         $user->delete();
 
+        // Invalidate session
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return Redirect::to('/')->with('status', 'Your account has been deleted.');
     }
 }

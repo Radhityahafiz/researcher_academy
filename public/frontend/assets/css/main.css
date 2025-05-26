@@ -1289,110 +1289,259 @@ section,
 # Courses Section
 --------------------------------------------------------------*/
 /* Materi Section */
+/* Materi Section - More Dynamic Layout */
 .materi .section-title {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
+  position: relative;
 }
 
 .materi .section-title h2 {
-  font-weight: 700;
+  font-weight: 800;
   color: var(--heading-color);
+  font-size: 2.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.materi .section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--accent-color);
+  border-radius: 2px;
 }
 
 .materi .section-title p {
   color: var(--text-color);
-  margin-bottom: 0;
+  margin-top: 20px;
+
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .materi-card {
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease-in-out;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  background: white;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.materi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--accent-color), #0dcaf0);
 }
 
 .materi-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
 .materi-card .card-body {
   padding: 30px;
+  position: relative;
+}
+
+.materi-card .card-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(13, 202, 240, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--accent-color);
+  font-size: 1.8rem;
 }
 
 .materi-card .card-title {
   font-weight: 700;
   margin-bottom: 15px;
   color: var(--heading-color);
+  font-size: 1.4rem;
 }
 
 .materi-card .card-text {
   color: var(--text-color);
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  line-height: 1.6;
 }
 
 .materi-card .btn-primary {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
-  padding: 8px 20px;
-  border-radius: 50px;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
-/* Video Mentoring Section */
+.materi-card .btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.materi-card .btn-primary:hover::before {
+  left: 100%;
+}
+
+/* Video Mentoring Section - More Vibrant */
 .video-mentoring {
-  background-color: #0dcaf0;
-  padding: 80px 0;
+  background: linear-gradient(135deg, #0dcaf0 0%, #00b4db 100%);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.video-mentoring::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
 }
 
 .video-card {
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease-in-out;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  background: white;
+  margin-bottom: 30px;
 }
 
 .video-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-10px) rotate(1deg);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
 
 .video-card .card-img-top {
-  height: 180px;
+  height: 200px;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.video-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.video-card .play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  opacity: 0.9;
+  transition: all 0.3s;
+}
+
+.video-card:hover .play-icon {
+  background: white;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .video-card .card-body {
   padding: 25px;
+  position: relative;
+}
+
+.video-card .duration-badge {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  background: var(--accent-color);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
 .video-card .card-title {
   font-weight: 700;
   margin-bottom: 15px;
+  color: var(--heading-color);
+  font-size: 1.3rem;
+}
+
+.video-card .card-text {
+  color: var(--text-color);
+  margin-bottom: 20px;
+  font-size: 0.95rem;
 }
 
 .video-card .btn-primary {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 600;
 }
 
-/* Quizz Section */
+/* Quizz Section - More Interactive */
 .quizz-card {
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease-in-out;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  background: white;
+  margin-bottom: 30px;
+  position: relative;
 }
 
 .quizz-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
 }
 
 .quizz-card .card-img-top {
-  height: 180px;
+  height: 200px;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.quizz-card:hover .card-img-top {
+  transform: scale(1.05);
 }
 
 .quizz-card .card-body {
@@ -1402,37 +1551,96 @@ section,
 .quizz-card .card-title {
   font-weight: 700;
   margin-bottom: 15px;
+  color: var(--heading-color);
+  font-size: 1.3rem;
+}
+
+.quizz-card .badge-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .quizz-card .badge {
-  padding: 8px 12px;
-  border-radius: 50px;
-  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.quizz-card .badge-difficulty {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  color: #fff;
+}
+
+.quizz-card .badge-questions {
+  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  color: #fff;
+}
+
+.quizz-card .badge-time {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  color: #333;
 }
 
 .quizz-card .btn-outline-primary {
   border-color: var(--accent-color);
   color: var(--accent-color);
+  border-width: 2px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 6px;
+  transition: all 0.3s;
 }
 
 .quizz-card .btn-outline-primary:hover {
   background-color: var(--accent-color);
   color: white;
+  transform: translateY(-2px);
 }
 
-/* Animation */
+/* Animation Enhancements */
 [data-aos] {
-  transition-property: transform, opacity;
+  transition-property: transform, opacity, filter;
 }
 
 [data-aos="fade-up"] {
-  transform: translate3d(0, 30px, 0);
+  transform: translate3d(0, 40px, 0);
   opacity: 0;
+  filter: blur(2px);
 }
 
 [data-aos="fade-up"].aos-animate {
   transform: translate3d(0, 0, 0);
   opacity: 1;
+  filter: blur(0);
+}
+
+/* Staggered Animation Delay */
+[data-aos-delay="100"] {
+  transition-delay: 100ms;
+}
+
+[data-aos-delay="200"] {
+  transition-delay: 200ms;
+}
+
+[data-aos-delay="300"] {
+  transition-delay: 300ms;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .materi .section-title h2 {
+    font-size: 2rem;
+  }
+  
+  .materi-card, .video-card, .quizz-card {
+    margin-bottom: 20px;
+  }
 }
 /*--------------------------------------------------------------
 # Trainers Index Section
