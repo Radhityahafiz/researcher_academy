@@ -14,6 +14,9 @@
                         <p class="small text-muted mt-1">Join our Research Academy</p>
                     </div>
                     
+                    <!-- Session Status -->
+                    <x-auth-session-status class="mb-3 alert alert-success" :status="session('status')" />
+                    
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         
@@ -116,6 +119,7 @@
 
     .btn-teal:hover {
         background: linear-gradient(135deg, #16a085 0%, #2980b9 100%);
+        color: white;
     }
     
     .form-control-sm, .form-select-sm {
@@ -126,6 +130,15 @@
     
     .text-teal {
         color: #1abc9c;
+    }
+    
+    .alert-success {
+        background-color: #d1fae5;
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
     }
 </style>
 @endpush

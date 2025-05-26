@@ -5,20 +5,21 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Tampilkan halaman form register.
      */
-    public function create()
+    public function create(): View
     {
-        return view('auth.register'); // Pastikan file ini ada di resources/views/auth/register.blade.php
+        return view('auth.register');
     }
 
     /**
@@ -26,7 +27,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): Response
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'username' => ['required', 'string', 'max:50', 'unique:users'],
@@ -46,8 +47,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return response()->noContent();
+        // Tidak langsung login, tapi arahkan ke halaman login dengan pesan sukses
+        return redirect()->route('login')->with('status', 'Registration successful! Please login to access your account.');
     }
 }
