@@ -9,10 +9,18 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'thumbnail'];
 
     public function materials()
     {
         return $this->hasMany(Material::class);
+    }
+
+    public function getThumbnailUrlAttribute()
+    {
+        if ($this->thumbnail) {
+            return asset('storage/' . $this->thumbnail);
+        }
+        return null;
     }
 }

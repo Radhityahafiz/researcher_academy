@@ -52,4 +52,10 @@ class User extends Authenticatable
     {
         return $this->role === 'peserta';
     }
+
+    // New method to count all peserta/students
+    public static function countPeserta()
+    {
+        return self::where('role', 'peserta')->count();
+    }
 }

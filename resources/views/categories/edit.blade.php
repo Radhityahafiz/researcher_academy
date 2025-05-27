@@ -9,7 +9,7 @@
             <h2>Edit Category: {{ $category->name }}</h2>
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('categories.update', $category) }}" method="POST">
+                    <form action="{{ route('categories.update', $category) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         
@@ -27,6 +27,24 @@
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="thumbnail" class="form-label">Thumbnail</label>
+                            @if($category->thumbnail)
+                                <div class="mb-2">
+                                    <img src="{{ $category->thumbnail_url }}" alt="Current thumbnail" class="img-thumbnail" style="max-height: 150px;">
+                                    <button type="button" class="btn btn-sm btn-danger ms-2" onclick="document.getElementById('delete-thumbnail').value = '1'">
+                                        <i class="fas fa-trash"></i> Remove
+                                    </button>
+                                    <input type="hidden" name="delete_thumbnail" id="delete-thumbnail" value="0">
+                                </div>
+                            @endif
+                            <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail">
+                            @error('thumbnail')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="text-muted">Recommended size: 400x300px, Max size: 2MB</small>
                         </div>
                         
                         <button type="submit" class="btn btn-teal">Update Category</button>

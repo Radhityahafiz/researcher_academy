@@ -19,30 +19,102 @@
     <!-- Custom styles for SB Admin 2 -->
     <link href="{{ asset('Backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --success-color: #2ecc71;
+            --info-color: #1abc9c;
+            --warning-color: #f39c12;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --card-hover-shadow: 0 8px 16px rgba(0,0,0,0.12);
+            --transition: all 0.3s ease;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-hover-shadow);
+        }
+        
+        .stat-card {
+            border-left: 4px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .stat-card-primary {
+            border-left-color: var(--primary-color);
+        }
+        
+        .stat-card-success {
+            border-left-color: var(--success-color);
+        }
+        
+        .stat-card-info {
+            border-left-color: var(--info-color);
+        }
+        
+        .stat-card-warning {
+            border-left-color: var(--warning-color);
+        }
+        
+        .stat-card .icon {
+            font-size: 2rem;
+            color: #ddd;
+        }
+        
+        .welcome-header {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .small-box-footer {
+            display: inline-block;
+            color: var(--primary-color);
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(52, 152, 219, 0.1);
+            margin-top: 10px;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+        
+        .small-box-footer:hover {
+            background: rgba(52, 152, 219, 0.2);
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+    </style>
+
     @stack('styles')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         @include('layouts.sidebar')
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 @include('layouts.topbar')
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-
+                <div class="container-fluid px-lg-4">
                     @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ session('success') }}
@@ -62,19 +134,15 @@
                     @endif
 
                     @yield('content')
-
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
             <!-- Footer -->
             @include('layouts.footer')
-
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
 
@@ -118,5 +186,4 @@
 
     @stack('scripts')
 </body>
-
 </html>

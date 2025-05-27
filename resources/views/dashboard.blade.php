@@ -4,160 +4,197 @@
 
 @section('content')
 <!-- Begin Page Content -->
-<div class="container-fluid px-md-4">
+<div class="container-fluid px-lg-4">
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Welcome, {{ auth()->user()->full_name }}</h1>
+    <!-- Welcome Header -->
+    <div class="welcome-header">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="h4 mb-2 font-weight-bold">Welcome, {{ auth()->user()->full_name }}</h1>
+                <p class="mb-0 text-muted">
+                    @if(auth()->user()->isMentor())
+                        Here's your teaching overview
+                    @else
+                        Continue your learning journey
+                    @endif
+                </p>
+            </div>
+            <div class="col-md-4 text-md-right">
+                <span class="badge badge-light p-2">
+                    <i class="far fa-calendar-alt mr-2"></i>
+                    {{ now()->format('F j, Y') }}
+                </span>
+            </div>
+        </div>
     </div>
 
-    <!-- Content Row -->
-    <div class="row justify-content-center">
-
+    <!-- Stats Row -->
+    <div class="row">
         @if(auth()->user()->isMentor())
             <!-- Materials Card -->
-            <div class="col-xl-3 col-md-6 mb-4 px-2">
-                <div class="card border-left-primary shadow h-100 py-2">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card stat-card-primary h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Materials</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ auth()->user()->materials()->count() }}</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-uppercase text-muted mb-2">Materials</h6>
+                                <h3 class="mb-0 font-weight-bold">{{ auth()->user()->materials()->count() }}</h3>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-book fa-2x text-gray-300"></i>
+                            <div class="icon">
+                                <i class="fas fa-book"></i>
                             </div>
                         </div>
-                        <a href="{{ route('materials.index') }}" class="small-box-footer mt-2">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('materials.index') }}" class="small-box-footer mt-3">
+                            View Materials <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Videos Card -->
-            <div class="col-xl-3 col-md-6 mb-4 px-2">
-                <div class="card border-left-success shadow h-100 py-2">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card stat-card-success h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Videos</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ auth()->user()->videos()->count() }}</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-uppercase text-muted mb-2">Videos</h6>
+                                <h3 class="mb-0 font-weight-bold">{{ auth()->user()->videos()->count() }}</h3>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-video fa-2x text-gray-300"></i>
+                            <div class="icon">
+                                <i class="fas fa-video"></i>
                             </div>
                         </div>
-                        <a href="{{ route('videos.index') }}" class="small-box-footer mt-2">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('videos.index') }}" class="small-box-footer mt-3">
+                            View Videos <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Quizzes Card -->
-            <div class="col-xl-3 col-md-6 mb-4 px-2">
-                <div class="card border-left-info shadow h-100 py-2">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card stat-card-info h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Quizzes</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ auth()->user()->quizzes()->count() }}</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-uppercase text-muted mb-2">Quizzes</h6>
+                                <h3 class="mb-0 font-weight-bold">{{ auth()->user()->quizzes()->count() }}</h3>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-question-circle fa-2x text-gray-300"></i>
+                            <div class="icon">
+                                <i class="fas fa-question-circle"></i>
                             </div>
                         </div>
-                        <a href="{{ route('quizzes.index') }}" class="small-box-footer mt-2">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('quizzes.index') }}" class="small-box-footer mt-3">
+                            View Quizzes <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Students Card -->
-            
+            <!-- Update the Students Card section in the mentor view -->
+<div class="col-xl-3 col-md-6 mb-4">
+    <div class="card stat-card stat-card-warning h-100">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-uppercase text-muted mb-2">Students</h6>
+                    <h3 class="mb-0 font-weight-bold">{{ \App\Models\User::countPeserta() }}</h3>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+            <a href="{{ route('students.index') }}" class="small-box-footer mt-3">
+                View Students <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </div>
+    </div>
+</div>
         @else
             <!-- Materials Card -->
-            <div class="col-xl-3 col-md-6 mb-4 px-2">
-                <div class="card border-left-primary shadow h-100 py-2">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card stat-card-primary h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Materials</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Models\Material::count() }}</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-uppercase text-muted mb-2">Materials</h6>
+                                <h3 class="mb-0 font-weight-bold">{{ \App\Models\Material::count() }}</h3>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-book fa-2x text-gray-300"></i>
+                            <div class="icon">
+                                <i class="fas fa-book"></i>
                             </div>
                         </div>
-                        <a href="{{ route('materials.index') }}" class="small-box-footer mt-2">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('materials.index') }}" class="small-box-footer mt-3">
+                            View Materials <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Quizzes Card -->
-            <div class="col-xl-3 col-md-6 mb-4 px-2">
-                <div class="card border-left-success shadow h-100 py-2">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card stat-card-success h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Quizzes</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Models\Quiz::count() }}</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-uppercase text-muted mb-2">Quizzes</h6>
+                                <h3 class="mb-0 font-weight-bold">{{ \App\Models\Quiz::count() }}</h3>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-question-circle fa-2x text-gray-300"></i>
+                            <div class="icon">
+                                <i class="fas fa-question-circle"></i>
                             </div>
                         </div>
-                        <a href="{{ route('quizzes.index') }}" class="small-box-footer mt-2">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('quizzes.index') }}" class="small-box-footer mt-3">
+                            View Quizzes <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Progress Card -->
-            <div class="col-xl-3 col-md-6 mb-4 px-2">
-                <div class="card border-left-info shadow h-100 py-2">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card stat-card-info h-100">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Learning Progress
-                                </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-uppercase text-muted mb-2">Progress</h6>
+                                <h3 class="mb-0 font-weight-bold">50%</h3>
+                                <div class="progress mt-2" style="height: 5px;">
+                                    <div class="progress-bar bg-info" style="width: 50%"></div>
                                 </div>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <div class="icon">
+                                <i class="fas fa-chart-line"></i>
                             </div>
                         </div>
+                        <a href="#" class="small-box-footer mt-3">
+                            View Progress <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Completed Courses Card -->
-            
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card stat-card stat-card-warning h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="text-uppercase text-muted mb-2">Completed</h6>
+                                <h3 class="mb-0 font-weight-bold">3</h3>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <a href="#" class="small-box-footer mt-3">
+                            View Certificates <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         @endif
     </div>
-
-    <!-- Content Row -->
-    
 </div>
 <!-- /.container-fluid -->
 @endsection
-
-@push('scripts')
-<!-- Page level plugins -->
-<script src="{{ asset('Backend/vendor/chart.js/Chart.min.js') }}"></script>
-
-<!-- Page level custom scripts -->
-<script src="{{ asset('Backend/js/demo/chart-area-demo.js') }}"></script>
-<script src="{{ asset('Backend/js/demo/chart-pie-demo.js') }}"></script>
-@endpush
