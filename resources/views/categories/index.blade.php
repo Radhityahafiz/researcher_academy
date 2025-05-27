@@ -21,6 +21,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th>Thumbnail</th>
                             <th>Name</th>
                             <th>Materials</th>
                             <th>Actions</th>
@@ -29,6 +30,13 @@
                     <tbody>
                         @foreach($categories as $category)
                             <tr>
+                                <td>
+                                    @if($category->thumbnail)
+                                        <img src="{{ $category->thumbnail_url }}" alt="{{ $category->name }}" style="max-height: 50px;">
+                                    @else
+                                        <span class="text-muted">No thumbnail</span>
+                                    @endif
+                                </td>
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->materials()->count() }}</td>
                                 <td>

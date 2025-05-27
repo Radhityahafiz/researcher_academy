@@ -8,6 +8,7 @@ use App\Models\Quiz;
 use App\Models\QuizAttempt;
 use App\Models\Option;
 use App\Models\Question;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
@@ -193,5 +194,10 @@ class ParticipantController extends Controller
         }
         
         return null;
+    }
+    public function categoryMaterials(Category $category)
+    {
+        $materials = $category->materials()->latest()->paginate(12);
+        return view('participants.category_materials', compact('category', 'materials'));
     }
 }

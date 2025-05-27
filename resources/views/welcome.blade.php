@@ -200,86 +200,6 @@
         margin-bottom: 20px;
       }
     }
-/* Search Highlight Styles */
-.search-highlight {
-    border: 2px solid #00bcd4 !important; /* Cyan border */
-    border-radius: 4px;
-    padding: 0.2rem 0.5rem;
-    animation: highlight-fade 2s ease-in-out;
-}
-
-/* Untuk heading */
-h1.search-highlight, 
-h2.search-highlight, 
-h3.search-highlight {
-    border: 2px solid #00838f !important; /* Dark cyan border */
-}
-
-/* Untuk card yang di-highlight */
-.content-card.search-highlight {
-    border: 2px solid #00acc1 !important; /* Medium cyan border */
-    box-shadow: 0 0 0 2px rgba(0, 172, 193, 0.3) !important; /* Cyan shadow */
-}
-
-/* Hapus background color dan ubah animasi */
-@keyframes highlight-fade {
-    0% { border-color: #00bcd4; }
-    50% { border-color: #0097a7; }
-    100% { border-color: #00bcd4; }
-}
-
-/* Animasi pulse untuk card */
-@keyframes pulse-cyan {
-    0% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0.3); }
-    70% { box-shadow: 0 0 0 6px rgba(0, 188, 212, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0); }
-}
-
-.content-card.search-highlight {
-    animation: pulse-cyan 1.5s infinite;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 1199px) {
-    .header-search-container {
-        max-width: 300px;
-    }
-}
-
-@media (max-width: 991px) {
-    .header-search-container {
-        order: 3;
-        width: 100%;
-        max-width: 100%;
-        margin: 15px 0 0 0;
-    }
-    
-    .header .container-fluid {
-        flex-wrap: wrap;
-    }
-    
-    .logo {
-        order: 1;
-    }
-    
-    .mobile-nav-toggle {
-        order: 2;
-    }
-    
-    .navmenu {
-        order: 4;
-    }
-    
-    .btn-getstarted {
-        order: 5;
-    }
-}
-
-@media (max-width: 575px) {
-    .header-search-container {
-        margin-top: 10px;
-    }
-}
   </style>
 </head>
 
@@ -291,17 +211,7 @@ h3.search-highlight {
     <a href="{{ route('welcome') }}" class="logo d-flex align-items-center me-auto">
       <img src="{{ asset('frontend/assets/img/logo_HRP.png') }}" alt="HRP Logo" class="img-fluid">
     </a>
-    <form id="globalSearchForm" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-    <div class="input-group">
-        <input type="text" id="globalSearchInput" class="form-control bg-light border-0 small" 
-            placeholder="Cari materi, video, quiz..." aria-label="Search">
-        <div class="input-group-append">
-            <button class="btn btn-custom-search" type="submit">
-                <i class="bi bi-search"></i> <!-- Ganti dengan icon Bootstrap Icons -->
-            </button>
-        </div>
-    </div>
-  </form>
+
     <nav id="navmenu" class="navmenu">
       <ul>
         <li><a href="{{ route('welcome') }}" class="active">Home</a></li>
@@ -372,50 +282,49 @@ h3.search-highlight {
     <!-- End Hero Section -->
 
     <!-- ======= Materi Section ======= -->
-    <section id="materi" class="materi content-section">
-      <div class="container">
+<section id="materi" class="materi content-section">
+    <div class="container">
         <div class="section-container">
-          <!-- Section Header -->
-          <div class="section-header" data-aos="fade-up">
-            <h2>Materi Magang</h2>
-            <p class="mt-3">Kumpulan materi pembelajaran untuk mendukung magang Anda</p>
-          </div>
-          <div class="section-nav">
-            <div class="section-nav-btn" onclick="scrollSectionLeft('materi-scroll')">
-              <i class="bi bi-chevron-left"></i>
+            <!-- Section Header -->
+            <div class="section-header" data-aos="fade-up">
+                <h2>Materi Magang</h2>
+                <p class="mt-3">Kumpulan materi pembelajaran untuk mendukung magang Anda</p>
             </div>
-            <div class="section-nav-btn" onclick="scrollSectionRight('materi-scroll')">
-              <i class="bi bi-chevron-right"></i>
+            <div class="section-nav">
+                <div class="section-nav-btn" onclick="scrollSectionLeft('materi-scroll')">
+                    <i class="bi bi-chevron-left"></i>
+                </div>
+                <div class="section-nav-btn" onclick="scrollSectionRight('materi-scroll')">
+                    <i class="bi bi-chevron-right"></i>
+                </div>
             </div>
-          </div>
         </div>
 
         <div class="row flex-nowrap section-scroll" id="materi-scroll">
-          @foreach($materials as $material)
-          <div class="col-md-4 col-lg-3 content-col mb-4">
-            <div class="card h-100 content-card">
-              <div class="card-body">
-                <h5 class="card-title">{{ $material->title }}</h5>
-                <p class="card-text">{{ Str::limit($material->description, 100) }}</p>
-                <a href="{{ auth()->check() ? (auth()->user()->isPeserta() ? route('participant.materials.show', $material) : route('materials.show', $material)) : route('login') }}" 
-                   class="btn btn-primary">
-                   Pelajari Sekarang
-                </a>
-              </div>
+            @foreach($categories as $category)
+            <div class="col-md-4 col-lg-3 content-col mb-4">
+                <div class="card h-100 content-card card-hover-effect">
+                    @if($category->thumbnail)
+                    <img src="{{ $category->thumbnail_url }}" class="card-img-top" alt="{{ $category->name }}" style="height: 150px; object-fit: cover;">
+                    @else
+                    <div class="card-img-top bg-secondary" style="height: 150px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-folder text-white" style="font-size: 3rem;"></i>
+                    </div>
+                    @endif
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $category->name }}</h5>
+                        <p class="card-text">{{ $category->materials_count }} Materi</p>
+                        <a href="{{ route('participant.category.materials', $category) }}" class="btn btn-primary stretched-link">
+                            Pelajari Sekarang
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
-          @endforeach
+            @endforeach
         </div>
-
-        <!-- Pagination -->
-        @if($materials->hasPages())
-        <div class="pagination-container" data-aos="fade-up">
-          {{ $materials->onEachSide(2)->links('pagination::bootstrap-4') }}
-        </div>
-        @endif
-      </div>
-    </section>
-    <!-- End Materi Section -->
+    </div>
+</section>
+<!-- End Materi Section -->
 
     <!-- ======= Video Mentoring Section ======= -->
     <section id="video-mentoring" class="video-mentoring content-section bg-light">
@@ -533,7 +442,7 @@ h3.search-highlight {
         <div class="footer-contact pt-3">
           <p><i class="bi bi-geo-alt-fill me-2"></i> JL. Brigjend. H. Hasan Basri KM 11, Ray 5, Kel. Handil Bakti, Kec. Alalak, Kab. Barito Kuala, Prov. Kalimantan Selatan</p>
           <p><i class="bi bi-telephone-fill me-2"></i> <strong>Telp:</strong> 0212 9343 888</p>
-          <p><i class="bi bi-envelope-fill me-2"></i> <strong>Email:</strong> info@example.com</p>
+          <p><i class="bi bi-envelope-fill me-2"></i> <strong>Email:</strong> hrp@hasnurcentre.org</p>
         </div>
 
         <div class="social-links d-flex mt-4">
@@ -599,108 +508,7 @@ h3.search-highlight {
 
   <!-- Main JS File -->
   <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
-  <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const searchForm = document.getElementById('globalSearchForm');
-    const searchInput = document.getElementById('globalSearchInput');
-    
-    if (searchForm && searchInput) {
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            performSearch(searchInput.value.trim().toLowerCase());
-        });
-        
-        // Live search saat mengetik
-        searchInput.addEventListener('input', function() {
-            performSearch(this.value.trim().toLowerCase());
-        });
-    }
-    
-    function performSearch(query) {
-        if (!query) {
-            resetSearch();
-            return;
-        }
-        
-        // Target semua elemen yang ingin dicari
-        const searchTargets = [
-            { selector: 'h1, h2, h3, h4, h5, h6', type: 'heading' },
-            { selector: '.card-title', type: 'card-title' },
-            { selector: '.card-text', type: 'card-text' },
-            { selector: '.hero-text h2', type: 'hero-title' },
-            { selector: '.hero-text p', type: 'hero-subtitle' }
-        ];
-        
-        let hasResults = false;
-        
-        // Reset semua highlight sebelumnya
-        resetSearch();
-        
-        // Cari di semua target
-        searchTargets.forEach(target => {
-            const elements = document.querySelectorAll(target.selector);
-            
-            elements.forEach(element => {
-                const text = element.textContent.toLowerCase();
-                const isMatch = text.includes(query);
-                
-                if (isMatch) {
-                    // Highlight elemen yang cocok
-                    element.classList.add('search-highlight');
-                    
-                    // Scroll ke elemen jika perlu
-                    if (target.type === 'heading') {
-                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                    
-                    // Untuk card, tampilkan card parent-nya
-                    if (target.type === 'card-title' || target.type === 'card-text') {
-                        const card = element.closest('.content-card');
-                        if (card) {
-                            card.style.display = 'block';
-                            card.classList.add('search-highlight');
-                        }
-                    }
-                    
-                    hasResults = true;
-                }
-            });
-        });
-        
-        // Tampilkan pesan jika tidak ada hasil
-        const globalNoResults = document.getElementById('global-no-results');
-        if (globalNoResults) {
-            globalNoResults.style.display = hasResults ? 'none' : 'block';
-        }
-    }
-    
-    function resetSearch() {
-        // Reset semua highlight
-        document.querySelectorAll('.search-highlight').forEach(el => {
-            el.classList.remove('search-highlight');
-        });
-        
-        // Tampilkan semua card yang mungkin disembunyikan
-        document.querySelectorAll('.content-card').forEach(card => {
-            card.style.display = 'block';
-        });
-        
-        // Sembunyikan pesan "no results"
-        const globalNoResults = document.getElementById('global-no-results');
-        if (globalNoResults) {
-            globalNoResults.style.display = 'none';
-        }
-    }
-    
-    // Keyboard shortcut Ctrl+K untuk fokus ke search input
-    document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.key === 'k') {
-            e.preventDefault();
-            searchInput.focus();
-        }
-    });
-});
-</script>
+
   <script>
     // Fungsi untuk scroll horizontal
     function scrollSectionLeft(sectionId) {

@@ -9,7 +9,7 @@
             <h2>Create New Category</h2>
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('categories.store') }}" method="POST">
+                    <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="mb-3">
@@ -26,6 +26,15 @@
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="thumbnail" class="form-label">Thumbnail</label>
+                            <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail">
+                            @error('thumbnail')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="text-muted">Recommended size: 400x300px, Max size: 2MB</small>
                         </div>
                         
                         <button type="submit" class="btn btn-teal">Create Category</button>
