@@ -73,6 +73,43 @@
 </div>
 @endsection
 
+@push('styles')
+<style>
+    .card-hover {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .hover-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        text-align: center;
+        padding: 8px 0;
+        font-size: 0.85rem;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .card-link:hover .hover-overlay {
+        opacity: 1;
+    }
+
+    .row.flex-nowrap {
+        gap: 1rem;
+    }
+</style>
+@endpush
+
 @push('scripts')
 <script src="{{ asset('Backend/vendor/chart.js/Chart.min.js') }}"></script>
 <script src="{{ asset('Backend/js/demo/chart-area-demo.js') }}"></script>
