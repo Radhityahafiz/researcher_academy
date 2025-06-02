@@ -22,6 +22,7 @@
                     <thead>
                         <tr>
                             <th>Title</th>
+                            <th>Category</th>
                             <th>Created By</th>
                             <th>Created At</th>
                             <th>Actions</th>
@@ -31,6 +32,7 @@
                         @foreach($videos as $video)
                             <tr>
                                 <td>{{ $video->title }}</td>
+                                <td>{{ $video->category->name ?? 'Uncategorized' }}</td>
                                 <td>{{ $video->creator->full_name }}</td>
                                 <td>{{ $video->created_at->format('d M Y, H:i') }}</td>
                                 <td>
@@ -56,7 +58,6 @@
         </div>
     </div>
 </div>
-
 
 <style>
     .btn-teal {

@@ -14,6 +14,21 @@
                         @method('PUT')
                         
                         <div class="mb-3">
+                            <label for="category_id" class="form-label">Category</label>
+                            <select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id" required>
+                                <option value="">Select Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ $video->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        
+                        <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $video->title) }}" required>
                             @error('title')

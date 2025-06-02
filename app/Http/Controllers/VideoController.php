@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class VideoController extends Controller
@@ -13,20 +14,23 @@ class VideoController extends Controller
         return view('videos.index', compact('videos'));
     }
 
-    public function create()
+   public function create()
     {
-        return view('videos.create');
+        $categories = Category::all();
+        return view('videos.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:100',
             'description' => 'nullable|string',
             'video_link' => 'required|url',
         ]);
 
         Video::create([
+            'category_id' => $request->category_id,
             'title' => $request->title,
             'description' => $request->description,
             'video_link' => $request->video_link,
@@ -43,18 +47,21 @@ class VideoController extends Controller
 
     public function edit(Video $video)
     {
-        return view('videos.edit', compact('video'));
+        $categories = Category::all();
+        return view('videos.edit', compact('video', 'categories'));
     }
 
     public function update(Request $request, Video $video)
     {
         $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:100',
             'description' => 'nullable|string',
             'video_link' => 'required|url',
         ]);
 
         $video->update([
+            'category_id' => $request->category_id,
             'title' => $request->title,
             'description' => $request->description,
             'video_link' => $request->video_link,

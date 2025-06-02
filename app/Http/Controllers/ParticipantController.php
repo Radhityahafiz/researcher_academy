@@ -162,6 +162,9 @@ class ParticipantController extends Controller
 
     public function showMaterial(Material $material)
     {
+        // Tandai sebagai selesai
+        auth()->user()->markAsCompleted($material);
+
         if ($material->content_type === 'link') {
             return redirect()->away($material->external_link);
         }
@@ -176,6 +179,9 @@ class ParticipantController extends Controller
 
     public function showVideo(Video $video)
     {
+        // Tandai sebagai selesai
+        auth()->user()->markAsCompleted($video);
+
         $videoId = $this->extractVideoId($video->video_link);
         return view('participants.video', compact('video', 'videoId'));
     }

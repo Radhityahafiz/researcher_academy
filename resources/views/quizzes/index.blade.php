@@ -24,6 +24,7 @@
                     <thead>
                         <tr>
                             <th>Title</th>
+                            <th>Category</th>
                             <th>Passing Score</th>
                             <th>Created By</th>
                             <th>Questions</th>
@@ -34,6 +35,7 @@
                         @foreach($quizzes as $quiz)
                             <tr>
                                 <td>{{ $quiz->title }}</td>
+                                <td>{{ $quiz->category->name ?? 'Uncategorized' }}</td>
                                 <td>{{ $quiz->passing_score }}%</td>
                                 <td>{{ $quiz->creator->full_name }}</td>
                                 <td>{{ $quiz->questions()->count() }}</td>

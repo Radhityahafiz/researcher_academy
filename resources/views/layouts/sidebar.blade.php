@@ -51,6 +51,22 @@
                     <i class="fas fa-fw fa-tags"></i>
                     <span>Categories</span></a>
             </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Management
+            </div>
+
+            <!-- Nav Item - Testimonials -->
+            <li class="nav-item {{ request()->routeIs('testimonials.dashboard') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('testimonials.dashboard') }}">
+                    <i class="fas fa-fw fa-comment"></i>
+                    <span>Kelola Testimoni</span>
+                </a>
+            </li>
         @endif
 
         <!-- Nav Item - Quizzes -->

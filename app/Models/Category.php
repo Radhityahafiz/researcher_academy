@@ -16,6 +16,16 @@ class Category extends Model
         return $this->hasMany(Material::class);
     }
 
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
+
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
+    }
+
     public function getThumbnailUrlAttribute()
     {
         if ($this->thumbnail) {

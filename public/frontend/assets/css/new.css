@@ -1,0 +1,252 @@
+/* Enhanced Card Styles */
+    .content-card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .content-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .content-card .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .content-card .card-title {
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    
+    .content-card .card-text {
+      color: #7f8c8d;
+      flex-grow: 1;
+      margin-bottom: 15px;
+    }
+    
+    .content-card .btn-primary {
+      align-self: flex-start;
+      background-color: #1abc9c;
+      border-color: #1abc9c;
+    }
+    
+    .content-card .btn-primary:hover {
+      background-color: #16a085;
+      border-color: #16a085;
+    }
+    
+    /* Section Styles */
+    .content-section {
+      padding: 80px 0;
+    }
+    
+    .section-header {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    
+    .section-header h2 {
+      font-weight: 800;
+      color: #2c3e50;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: #1abc9c;
+    }
+    
+    /* Pagination Styles */
+    .pagination-container {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .pagination .page-item.active .page-link {
+      background-color: #1abc9c;
+      border-color: #1abc9c;
+    }
+    
+    .pagination .page-link {
+      color: #1abc9c;
+    }
+    
+    /* Section Navigation Styles */
+    .section-container {
+      position: relative;
+    }
+    
+    .section-nav {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .section-nav-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .section-nav-btn:hover {
+      background: #1abc9c;
+      color: white;
+    }
+    
+    /* Horizontal Scroll Styles */
+    .section-scroll {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 20px;
+    }
+    
+    .section-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .content-col {
+      flex: 0 0 25%;
+      padding: 0 15px;
+    }
+    
+    /* Enhanced Pagination */
+    .pagination-lg .page-link {
+      padding: 0.75rem 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .content-col {
+        flex: 0 0 50%;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .content-section {
+        padding: 60px 0;
+      }
+      
+      .section-header h2 {
+        font-size: 1.8rem;
+      }
+      
+      .content-col {
+        flex: 0 0 100%;
+      }
+      
+      .section-nav {
+        position: static;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+    }
+    /* Search Highlight Styles */
+.search-highlight {
+    border: 2px solid #00bcd4 !important; /* Cyan border */
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    animation: highlight-fade 2s ease-in-out;
+}
+
+/* Untuk heading */
+h1.search-highlight, 
+h2.search-highlight, 
+h3.search-highlight {
+    border: 2px solid #00838f !important; /* Dark cyan border */
+}
+
+/* Untuk card yang di-highlight */
+.content-card.search-highlight {
+    border: 2px solid #00acc1 !important; /* Medium cyan border */
+    box-shadow: 0 0 0 2px rgba(0, 172, 193, 0.3) !important; /* Cyan shadow */
+}
+
+/* Hapus background color dan ubah animasi */
+@keyframes highlight-fade {
+    0% { border-color: #00bcd4; }
+    50% { border-color: #0097a7; }
+    100% { border-color: #00bcd4; }
+}
+
+/* Animasi pulse untuk card */
+@keyframes pulse-cyan {
+    0% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0.3); }
+    70% { box-shadow: 0 0 0 6px rgba(0, 188, 212, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0); }
+}
+
+.content-card.search-highlight {
+    animation: pulse-cyan 1.5s infinite;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1199px) {
+    .header-search-container {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 991px) {
+    .header-search-container {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin: 15px 0 0 0;
+    }
+    
+    .header .container-fluid {
+        flex-wrap: wrap;
+    }
+    
+    .logo {
+        order: 1;
+    }
+    
+    .mobile-nav-toggle {
+        order: 2;
+    }
+    
+    .navmenu {
+        order: 4;
+    }
+    
+    .btn-getstarted {
+        order: 5;
+    }
+}
+
+@media (max-width: 575px) {
+    .header-search-container {
+        margin-top: 10px;
+    }
+}

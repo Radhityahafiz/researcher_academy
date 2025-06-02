@@ -6,6 +6,7 @@ use App\Models\Option;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\QuizAttempt;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -18,18 +19,21 @@ class QuizController extends Controller
 
     public function create()
     {
-        return view('quizzes.create');
+        $categories = Category::all();
+        return view('quizzes.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:100',
             'description' => 'nullable|string',
             'passing_score' => 'required|integer|min:0|max:100',
         ]);
 
         Quiz::create([
+            'category_id' => $request->category_id,
             'title' => $request->title,
             'description' => $request->description,
             'passing_score' => $request->passing_score,
@@ -47,18 +51,21 @@ class QuizController extends Controller
 
     public function edit(Quiz $quiz)
     {
-        return view('quizzes.edit', compact('quiz'));
+        $categories = Category::all();
+        return view('quizzes.edit', compact('quiz', 'categories'));
     }
 
     public function update(Request $request, Quiz $quiz)
     {
         $request->validate([
+            'category_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:100',
             'description' => 'nullable|string',
             'passing_score' => 'required|integer|min:0|max:100',
         ]);
 
         $quiz->update([
+            'category_id' => $request->category_id,
             'title' => $request->title,
             'description' => $request->description,
             'passing_score' => $request->passing_score,

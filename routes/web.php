@@ -10,6 +10,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ProgressController;
+use App\Http\Controllers\TestimonialController;
+
 use App\Http\Middleware\CheckRole;
 
 // Halaman awal (Welcome)
@@ -96,8 +99,42 @@ Route::prefix('participant')->group(function () {
     Route::get('/quizzes/{attempt}/result', [ParticipantController::class, 'quizResult'])
         ->name('participant.quizzes.result');
     Route::post('/quizzes/{quiz}/save-progress', [ParticipantController::class, 'saveProgress'])->name('participant.quizzes.save-progress');
+     Route::get('/materials', [ParticipantController::class, 'materialIndex'])
+            ->name('participant.materials.index');
+            
+    Route::get('/videos', [ParticipantController::class, 'videoIndex'])
+            ->name('participant.videos.index');
     
 });
+// routes/web.php
+Route::middleware(['auth'])->group(function () {
+    // Progress routes
+    Route::prefix('progress')->group(function () {
+        Route::get('/', [ProgressController::class, 'index'])->name('progress.index');
+        Route::get('/materials', [ProgressController::class, 'showMaterials'])->name('progress.materials');
+        Route::get('/videos', [ProgressController::class, 'showVideos'])->name('progress.videos');
+        Route::get('/quizzes', [ProgressController::class, 'showQuizzes'])->name('progress.quizzes');
+    });
+});
+     Route::get('/categories/{category}', [\App\Http\Controllers\Participant\CategoryController::class, 'show'])
+        ->name('participant.categories.show');
+
+});
+    // Tambahkan route berikut di dalam grup auth
+Route::middleware(['auth'])->group(function () {
+    // Route testimonial untuk peserta
+    Route::prefix('testimonials')->group(function () {
+        Route::get('/', [TestimonialController::class, 'index'])->name('testimonials.index');
+        Route::get('/create', [TestimonialController::class, 'create'])->name('testimonials.create');
+        Route::post('/', [TestimonialController::class, 'store'])->name('testimonials.store');
+    });
+
+    // Route untuk admin mengelola testimonial
+    Route::middleware(CheckRole::class . ':mentor')->group(function () {
+        Route::get('/admin/testimonials', [TestimonialController::class, 'dashboard'])->name('testimonials.dashboard');
+        Route::get('/admin/testimonials/{testimonial}/approve', [TestimonialController::class, 'approve'])->name('testimonials.approve');
+        Route::get('/admin/testimonials/{testimonial}/reject', [TestimonialController::class, 'reject'])->name('testimonials.reject');
+    });
 });
 
 // Route auth bawaan dari Laravel Breeze / UI
