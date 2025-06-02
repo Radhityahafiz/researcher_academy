@@ -200,6 +200,86 @@
         margin-bottom: 20px;
       }
     }
+    /* Search Highlight Styles */
+.search-highlight {
+    border: 2px solid #00bcd4 !important; /* Cyan border */
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+    animation: highlight-fade 2s ease-in-out;
+}
+
+/* Untuk heading */
+h1.search-highlight, 
+h2.search-highlight, 
+h3.search-highlight {
+    border: 2px solid #00838f !important; /* Dark cyan border */
+}
+
+/* Untuk card yang di-highlight */
+.content-card.search-highlight {
+    border: 2px solid #00acc1 !important; /* Medium cyan border */
+    box-shadow: 0 0 0 2px rgba(0, 172, 193, 0.3) !important; /* Cyan shadow */
+}
+
+/* Hapus background color dan ubah animasi */
+@keyframes highlight-fade {
+    0% { border-color: #00bcd4; }
+    50% { border-color: #0097a7; }
+    100% { border-color: #00bcd4; }
+}
+
+/* Animasi pulse untuk card */
+@keyframes pulse-cyan {
+    0% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0.3); }
+    70% { box-shadow: 0 0 0 6px rgba(0, 188, 212, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0); }
+}
+
+.content-card.search-highlight {
+    animation: pulse-cyan 1.5s infinite;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1199px) {
+    .header-search-container {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 991px) {
+    .header-search-container {
+        order: 3;
+        width: 100%;
+        max-width: 100%;
+        margin: 15px 0 0 0;
+    }
+    
+    .header .container-fluid {
+        flex-wrap: wrap;
+    }
+    
+    .logo {
+        order: 1;
+    }
+    
+    .mobile-nav-toggle {
+        order: 2;
+    }
+    
+    .navmenu {
+        order: 4;
+    }
+    
+    .btn-getstarted {
+        order: 5;
+    }
+}
+
+@media (max-width: 575px) {
+    .header-search-container {
+        margin-top: 10px;
+    }
+}
   </style>
 </head>
 
@@ -211,7 +291,17 @@
     <a href="{{ route('welcome') }}" class="logo d-flex align-items-center me-auto">
       <img src="{{ asset('frontend/assets/img/logo_HRP.png') }}" alt="HRP Logo" class="img-fluid">
     </a>
-
+<form id="globalSearchForm" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <div class="input-group">
+        <input type="text" id="globalSearchInput" class="form-control bg-light border-0 small" 
+            placeholder="Cari materi, video, quiz..." aria-label="Search">
+        <div class="input-group-append">
+            <button class="btn btn-custom-search" type="submit">
+                <i class="bi bi-search"></i> <!-- Ganti dengan icon Bootstrap Icons -->
+            </button>
+        </div>
+    </div>
+  </form>
     <nav id="navmenu" class="navmenu">
       <ul>
         <li><a href="{{ route('welcome') }}" class="active">Home</a></li>
@@ -247,7 +337,6 @@
       <a class="btn-getstarted d-none d-xl-block" href="{{ route('login') }}">Login</a>
     @endauth
   </div>
-  
 </header>
 <!-- End Header -->
 
@@ -508,7 +597,108 @@
 
   <!-- Main JS File -->
   <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
-
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchForm = document.getElementById('globalSearchForm');
+    const searchInput = document.getElementById('globalSearchInput');
+    
+    if (searchForm && searchInput) {
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            performSearch(searchInput.value.trim().toLowerCase());
+        });
+        
+        // Live search saat mengetik
+        searchInput.addEventListener('input', function() {
+            performSearch(this.value.trim().toLowerCase());
+        });
+    }
+    
+    function performSearch(query) {
+        if (!query) {
+            resetSearch();
+            return;
+        }
+        
+        // Target semua elemen yang ingin dicari
+        const searchTargets = [
+            { selector: 'h1, h2, h3, h4, h5, h6', type: 'heading' },
+            { selector: '.card-title', type: 'card-title' },
+            { selector: '.card-text', type: 'card-text' },
+            { selector: '.hero-text h2', type: 'hero-title' },
+            { selector: '.hero-text p', type: 'hero-subtitle' }
+        ];
+        
+        let hasResults = false;
+        
+        // Reset semua highlight sebelumnya
+        resetSearch();
+        
+        // Cari di semua target
+        searchTargets.forEach(target => {
+            const elements = document.querySelectorAll(target.selector);
+            
+            elements.forEach(element => {
+                const text = element.textContent.toLowerCase();
+                const isMatch = text.includes(query);
+                
+                if (isMatch) {
+                    // Highlight elemen yang cocok
+                    element.classList.add('search-highlight');
+                    
+                    // Scroll ke elemen jika perlu
+                    if (target.type === 'heading') {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    
+                    // Untuk card, tampilkan card parent-nya
+                    if (target.type === 'card-title' || target.type === 'card-text') {
+                        const card = element.closest('.content-card');
+                        if (card) {
+                            card.style.display = 'block';
+                            card.classList.add('search-highlight');
+                        }
+                    }
+                    
+                    hasResults = true;
+                }
+            });
+        });
+        
+        // Tampilkan pesan jika tidak ada hasil
+        const globalNoResults = document.getElementById('global-no-results');
+        if (globalNoResults) {
+            globalNoResults.style.display = hasResults ? 'none' : 'block';
+        }
+    }
+    
+    function resetSearch() {
+        // Reset semua highlight
+        document.querySelectorAll('.search-highlight').forEach(el => {
+            el.classList.remove('search-highlight');
+        });
+        
+        // Tampilkan semua card yang mungkin disembunyikan
+        document.querySelectorAll('.content-card').forEach(card => {
+            card.style.display = 'block';
+        });
+        
+        // Sembunyikan pesan "no results"
+        const globalNoResults = document.getElementById('global-no-results');
+        if (globalNoResults) {
+            globalNoResults.style.display = 'none';
+        }
+    }
+    
+    // Keyboard shortcut Ctrl+K untuk fokus ke search input
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'k') {
+            e.preventDefault();
+            searchInput.focus();
+        }
+    });
+});
+</script>
   <script>
     // Fungsi untuk scroll horizontal
     function scrollSectionLeft(sectionId) {
@@ -587,7 +777,5 @@
       });
     });
   </script>
-  
-
 </body>
 </html>

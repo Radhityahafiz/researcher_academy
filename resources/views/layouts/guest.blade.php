@@ -13,32 +13,36 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('Backend/avendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('Backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
-    @push('styles')
-<style>
-    .bg-gradient-teal {
-        background: linear-gradient(to right, #1abc9c, #2980b9);
-    }
-</style>
-@endpush
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
+        .bg-gradient-teal {
+            background: linear-gradient(to right, #1abc9c, #2980b9);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 
     @stack('styles')
 </head>
 
 <body class="bg-gradient-teal">
 
-    <div class="container">
-
+    {{-- Kontainer konten halaman login/register --}}
+    <main class="w-100">
         @yield('content')
-
-    </div>
+    </main>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('Backend/vendor/jquery/jquery.min.js') }}"></script>
@@ -54,4 +58,3 @@
 </body>
 
 </html>
-

@@ -3,73 +3,49 @@
 @section('title', 'Login')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-            <div class="card shadow-sm border-0" style="border-radius: 12px;">
-                <div class="card-body p-4 p-sm-5">
-                    <div class="text-center mb-4">
-                        <img src="{{ asset('Backend/img/logo_HRP.png') }}" alt="HRP Logo" style="width: 80px;">
-                        <h2 class="h4 mt-3 mb-0 font-weight-bold">Welcome to Research Academy</h2>
-                    </div>
-                    
-                    <!-- Session Status -->
-                    @if(session('status'))
-                        <div class="alert alert-success mb-3">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    
-                    <x-auth-session-status class="mb-3" :status="session('status')" />
-                    
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        
-                        <!-- Email Address -->
-                        <div class="mb-3">
-                            <label for="email" class="form-label small font-weight-bold">Email Address</label>
-                            <x-text-input id="email" type="email" name="email" :value="old('email')" 
-                                class="form-control"
-                                placeholder="Enter your email address" required autofocus autocomplete="username" />
-                            <x-input-error :messages="$errors->get('email')" class="mt-1 text-danger small" />
-                        </div>
-                        
-                        <!-- Password -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label small font-weight-bold">Password</label>
-                            <x-text-input id="password" type="password" name="password" 
-                                class="form-control"
-                                placeholder="Enter your password" required autocomplete="current-password" />
-                            <x-input-error :messages="$errors->get('password')" class="mt-1 text-danger small" />
-                        </div>
-                        
-                        <!-- Remember Me -->
-                        <div class="mb-3 form-check">
-                            <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-                            <label for="remember_me" class="form-check-label small">Remember me</label>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-teal w-100 py-2 font-weight-bold">
-                            {{ __('Login') }}
-                        </button>
-                    </form>
-                    
-                    <hr class="my-4">
-                    
-                    <div class="text-center small">
-                        @if (Route::has('password.request'))
-                            <a class="text-decoration-none text-teal" href="{{ route('password.request') }}">{{ __('Forgot Password?') }}</a>
-                        @endif
-                        
-                        @if (Route::has('register'))
-                            <div class="mt-2">
-                                <span class="text-muted">Don't have an account?</span>
-                                <a class="text-decoration-none text-teal font-weight-bold ml-1" href="{{ route('register') }}">Create one!</a>
-                            </div>
-                        @endif
-                    </div>
-                </div>
+<div class="login-full-bg">
+    <div class="login-left-form">
+        <div class="login-form-wrapper">
+            <div class="text-center mb-4">
+                <img src="{{ asset('Backend/img/logo_HRP.png') }}" alt="Logo" style="width: 60px;">
+                <h2 class="text-white mb-4">Acessar sua conta</h2>
             </div>
+
+            @if (session('status'))
+                <div class="alert alert-success mb-3">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="form-group mb-3 position-relative">
+                    <label for="email" class="form-label text-white small">E-mail</label>
+                    <x-text-input id="email" type="email" name="email" :value="old('email')"
+                        class="form-control login-input" placeholder="email@domain.com" required autofocus />
+                    <x-input-error :messages="$errors->get('email')" class="mt-1 text-warning small" />
+                </div>
+
+                <div class="form-group mb-3 position-relative">
+                    <label for="password" class="form-label text-white small">Senha</label>
+                    <x-text-input id="password" type="password" name="password"
+                        class="form-control login-input" placeholder="********" required />
+                    <x-input-error :messages="$errors->get('password')" class="mt-1 text-warning small" />
+                </div>
+
+                <div class="mb-3 text-end">
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}" class="small text-light text-decoration-none">Esqueceu sua senha?</a>
+                    @endif
+                </div>
+
+                <button type="submit" class="btn btn-login w-100 mb-3">Entrar</button>
+
+                <div class="text-center small text-white">
+                    Novo usuário? <a href="{{ route('register') }}" class="text-white text-decoration-underline">Crie uma conta grátis</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -77,52 +53,74 @@
 
 @push('styles')
 <style>
-    .bg-gradient-teal {
-        background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%);
-        min-height: 100vh;
-        padding-top: 80px;
-    }
-    
-    .btn-teal {
-        background: linear-gradient(135deg, #1abc9c 0%, #3498db 100%);
-        color: white;
-        border: none;
-        border-radius: 6px;
-        transition: all 0.3s ease;
+    /* Reset dasar & font */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Nunito', sans-serif;
     }
 
-    .btn-teal:hover {
-        background: linear-gradient(135deg, #16a085 0%, #2980b9 100%);
+    /* Background penuh dengan gradasi dari kiri ke kanan di atas foto background */
+    .login-full-bg {
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%), url("{{ asset('Backend/img/bg_LOG.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* Form berada di sebelah kiri */
+        padding-left: 50px;
+        position: relative;
+    }
+
+    /* Container form tanpa box background */
+    .login-left-form {
+        width: 100%;
+        max-width: 420px;
+        padding: 40px;
+    }
+
+    .login-form-wrapper {
+        width: 100%;
+    }
+
+    /* Styling input modern */
+    .login-input {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        color: white;
+        transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .login-input:focus {
+        border-color: #00c3ff;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 8px rgba(0, 195, 255, 0.6);
         color: white;
     }
-    
-    .text-teal {
-        color: #1abc9c;
-    }
-    
-    .card {
+
+    /* Tombol login dengan efek hover dan transisi */
+    .btn-login {
+        background: #00b4d8;
         border: none;
+        border-radius: 8px;
+        padding: 10px 0;
+        font-weight: 600;
+        color: white;
+        transition: background 0.3s ease, transform 0.2s ease;
     }
-    
-    .form-control {
-        border-radius: 6px;
-        padding: 0.5rem 1rem;
+
+    .btn-login:hover {
+        background: #0096c7;
+        transform: translateY(-2px);
     }
-    
-    .form-control:focus {
-        box-shadow: 0 0 0 0.2rem rgba(26, 188, 156, 0.25);
-        border-color: #1abc9c;
-    }
-    
-    .form-check-input:checked {
-        background-color: #1abc9c;
-        border-color: #1abc9c;
-    }
-    
-    hr {
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    
+
+    /* Alert sukses dengan desain lembut */
     .alert-success {
         background-color: #d1fae5;
         color: #065f46;
@@ -130,6 +128,17 @@
         border-radius: 6px;
         padding: 0.5rem 1rem;
         font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+        .login-full-bg {
+            justify-content: center;
+            padding-left: 0;
+        }
+        .login-left-form {
+            max-width: 90%;
+            padding: 30px;
+        }
     }
 </style>
 @endpush
