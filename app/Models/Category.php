@@ -11,6 +11,11 @@ class Category extends Model
 
     protected $fillable = ['name', 'description', 'thumbnail'];
 
+    public function assignments()
+    {
+        return $this->hasMany(Assignment::class);
+    }
+    
     public function materials()
     {
         return $this->hasMany(Material::class);
@@ -19,11 +24,6 @@ class Category extends Model
     public function videos()
     {
         return $this->hasMany(Video::class);
-    }
-
-    public function quizzes()
-    {
-        return $this->hasMany(Quiz::class);
     }
 
     public function getThumbnailUrlAttribute()

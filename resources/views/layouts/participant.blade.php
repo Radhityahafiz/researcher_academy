@@ -8,7 +8,8 @@
     <meta name="description" content="E-Learning System">
     <meta name="author" content="Your Name">
 
-    <title>E-Learning System | @yield('title')</title>
+    <link href="{{ asset('frontend/assets/img/HRP.png') }}" rel="icon">
+    <title>Research Academy | @yield('title')</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -21,60 +22,9 @@
 
     <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
+    <link href="{{ asset('frontend/assets/css/participants.css') }}" rel="stylesheet">
     @stack('styles')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <style>
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --accent-color: #4cc9f0;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --success-color: #4bb543;
-            --danger-color: #f44336;
-            --warning-color: #ff9800;
-            --info-color: #2196f3;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f7ff;
-            color: var(--dark-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .container {
-            flex: 1;
-        }
-        
-        .alert {
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        .btn {
-            border-radius: 8px;
-            font-weight: 500;
-            padding: 0.5rem 1.25rem;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
-        }
-    </style>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -99,7 +49,7 @@
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    @stack('scripts')
-</body>
+    <script src="{{ asset('frontend/assets/js/new.js') }}"></script>
 
+</body>
 </html>

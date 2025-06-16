@@ -10,7 +10,7 @@ class VideoController extends Controller
 {
     public function index()
     {
-        $videos = Video::with('creator')->latest()->get();
+        $videos = Video::with('creator')->orderBy('created_at', 'asc')->get();
         return view('videos.index', compact('videos'));
     }
 

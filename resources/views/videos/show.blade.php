@@ -3,39 +3,33 @@
 @section('title', $video->title)
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('videos.index') }}">Videos</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $video->title }}</li>
-                </ol>
-            </nav>
-            
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="mb-0">{{ $video->title }}</h4>
-                        <div>
-                            <a href="{{ route('videos.edit', $video) }}" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                        </div>
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ $video->title }}</h6>
+                    <div>
+                        <a href="{{ route('videos.edit', $video) }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="mb-4">
-                        <h5>Details</h5>
-                        <ul class="list-unstyled">
-                            <li><strong>Created By:</strong> {{ $video->creator->full_name }}</li>
-                            <li><strong>Created At:</strong> {{ $video->created_at->format('d M Y, H:i') }}</li>
-                        </ul>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5>Detail</h5>
+                            <ul class="list-unstyled">
+                                <li><strong>Dibuat Oleh:</strong> {{ $video->creator->full_name }}</li>
+                                <li><strong>Tanggal Dibuat:</strong> {{ $video->created_at->format('d M Y, H:i') }}</li>
+                                <li><strong>Kategori:</strong> {{ $video->category->name ?? 'Tidak berkategori' }}</li>
+                            </ul>
+                        </div>
                     </div>
                     
                     <div class="mb-4">
-                        <h5>Description</h5>
-                        <p>{{ $video->description ?? 'No description provided.' }}</p>
+                        <h5>Deskripsi</h5>
+                        <p>{{ $video->description ?? 'Tidak ada deskripsi' }}</p>
                     </div>
                     
                     <div class="mb-4">
@@ -44,6 +38,9 @@
                             <iframe src="{{ $video->video_link }}" allowfullscreen></iframe>
                         </div>
                     </div>
+                    <a href="{{ route('videos.index') }}" class="btn btn-secondary btn-sm">
+                            <i class="fas fa-arrow-left"></i> Kembali
+                    </a>
                 </div>
             </div>
         </div>

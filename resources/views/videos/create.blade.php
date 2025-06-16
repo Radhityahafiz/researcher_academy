@@ -1,21 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'Create Video')
+@section('title', 'Tambah Video Baru')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <h2>Create New Video</h2>
-            <div class="card">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Tambah Video Baru</h6>
+                </div>
                 <div class="card-body">
                     <form action="{{ route('videos.store') }}" method="POST">
                         @csrf
                         
-                        <div class="mb-3">
-                            <label for="category_id" class="form-label">Category</label>
+                        <div class="form-group">
+                            <label for="category_id">Kategori</label>
                             <select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id" required>
-                                <option value="">Select Category</option>
+                                <option value="">Pilih Kategori</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                         {{ $category->name }}
@@ -27,33 +29,33 @@
                             @enderror
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Title</label>
+                        <div class="form-group">
+                            <label for="title">Judul</label>
                             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required>
                             @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
+                        <div class="form-group">
+                            <label for="description">Deskripsi</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description') }}</textarea>
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="video_link" class="form-label">Video Link</label>
+                        <div class="form-group">
+                            <label for="video_link">Tautan Video</label>
                             <input type="url" class="form-control @error('video_link') is-invalid @enderror" id="video_link" name="video_link" value="{{ old('video_link') }}" required>
                             @error('video_link')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <small class="text-muted">Paste the embed URL from YouTube or other video platforms</small>
+                            <small class="form-text text-muted">Masukkan URL embed dari YouTube atau platform video lainnya</small>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary">Create Video</button>
-                        <a href="{{ route('videos.index') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <a href="{{ route('videos.index') }}" class="btn btn-secondary">Batal</a>
                     </form>
                 </div>
             </div>

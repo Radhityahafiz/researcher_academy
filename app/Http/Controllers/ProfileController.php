@@ -32,7 +32,7 @@ class ProfileController extends Controller
     // Save changes (removed email verification logic)
     $request->user()->save();
 
-    return Redirect::route('profile.edit')->with('status', 'Profile updated successfully!');
+    return Redirect::route('profile.edit')->with('status', 'Profil Berhasil Diperbarui!!');
 }
 
     /**
@@ -57,6 +57,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/')->with('status', 'Your account has been deleted.');
+        return Redirect::to('/')->with('status', 'Akun Anda telah dihapus');
     }
 }

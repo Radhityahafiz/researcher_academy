@@ -11,7 +11,7 @@ class MaterialController extends Controller
 {
     public function index()
     {
-        $materials = Material::with('category', 'creator')->latest()->get();
+        $materials = Material::with('category', 'creator')->orderBy('created_at', 'asc')->get();
         return view('materials.index', compact('materials'));
     }
 

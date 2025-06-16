@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->rememberToken();
             $table->enum('role', ['mentor', 'peserta']);
+            $table->enum('status', ['active', 'inactive'])->default('active'); 
             $table->string('full_name');
             $table->timestamps();
         });

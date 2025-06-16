@@ -1,0 +1,418 @@
+/*--------------------------------------------------------------
+# layouts app
+--------------------------------------------------------------*/
+  
+  :root {
+            --primary-color: #3a7bd5;
+            --primary-light: #e7f1ff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --sidebar-width: 250px;
+            --topbar-height: 56px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #495057;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card {
+            border-left: 4px solid transparent;
+            transition: var(--transition);
+        }
+
+        .stat-card-primary {
+            border-left-color: var(--primary-color);
+        }
+
+        .stat-card-success {
+            border-left-color: var(--success-color);
+        }
+
+        .stat-card-info {
+            border-left-color: var(--info-color);
+        }
+
+        .stat-card-warning {
+            border-left-color: var(--warning-color);
+        }
+
+        .stat-card .icon {
+            font-size: 2rem;
+            color: #e9ecef;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #2c5fb3;
+            border-color: #2c5fb3;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .border-primary {
+            border-color: var(--primary-color) !important;
+        }
+
+        .welcome-header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .small-box-footer {
+            display: inline-block;
+            color: var(--primary-color);
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(58, 123, 213, 0.1);
+            margin-top: 10px;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .small-box-footer:hover {
+            background: rgba(58, 123, 213, 0.2);
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .progress-bar {
+            border-radius: 4px;
+        }
+
+        .badge-primary {
+            background-color: var(--primary-color);
+        }
+
+        .sidebar {
+            background: linear-gradient(to bottom, #3a7bd5, #00d2ff);
+        }
+
+        .sidebar .nav-item .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .sidebar .nav-item .nav-link:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar .nav-item.active .nav-link {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-brand {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-brand-text {
+            color: white !important;
+        }
+
+        .topbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .img-profile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        font-size: 14px;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .dropdown-item:active {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .alert {
+            border: none;
+            border-radius: 8px;
+        }
+
+        .scroll-to-top {
+            background-color: var(--primary-color);
+        }
+
+        .scroll-to-top:hover {
+            background-color: #2c5fb3;
+        }
+
+        @media (max-width: 768px) {
+    #accordionSidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: -250px !important;
+        width: 250px !important;
+        height: 100vh !important;
+        background-color: #4e73df !important;
+        background-image: linear-gradient(180deg,#3a7bd5, #00d2ff) !important;
+        background-size: cover !important;
+        z-index: 9999 !important;
+        transition: left 0.3s ease !important;
+        overflow-y: auto !important;
+        padding-top: 4.5rem !important;
+    }
+    
+    #accordionSidebar.show-mobile {
+        left: 0 !important;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Sidebar Brand */
+    .sidebar-brand {
+        height: 4.375rem !important;
+        text-decoration: none !important;
+        font-size: 1rem !important;
+        font-weight: 800 !important;
+        padding: 1.5rem 1rem !important;
+        text-align: center !important;
+        letter-spacing: 0.05rem !important;
+        z-index: 1 !important;
+    }
+    
+    .sidebar-brand .sidebar-brand-icon img {
+        height: 2rem !important;
+    }
+    
+    .sidebar-brand .sidebar-brand-text {
+        display: inline !important;
+        font-size: 0.8rem !important;
+        color: white !important;
+        text-transform: uppercase !important;
+    }
+    
+    /* Sidebar Divider */
+    .sidebar-divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+        margin: 0 1rem 1rem !important;
+    }
+    
+    /* Sidebar Heading */
+    .sidebar-heading {
+        text-align: left !important;
+        padding: 0 1rem !important;
+        font-weight: 800 !important;
+        font-size: 0.65rem !important;
+        color: rgba(255, 255, 255, 0.4) !important;
+        text-transform: uppercase !important;
+    }
+    
+    /* Nav Items */
+    .nav-item {
+        position: relative !important;
+    }
+    
+    .nav-item .nav-link {
+        display: flex !important;
+        align-items: center !important;
+        padding: 0.75rem 1rem !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-weight: 600 !important;
+        font-size: 0.85rem !important;
+        white-space: nowrap !important;
+    }
+    
+    .nav-item .nav-link i {
+        font-size: 0.85rem !important;
+        margin-right: 0.25rem !important;
+        color: rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .nav-item .nav-link:hover, 
+    .nav-item .nav-link:focus {
+        color: white !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    .nav-item .nav-link:hover i,
+    .nav-item .nav-link:focus i {
+        color: white !important;
+    }
+    
+    .nav-item.active .nav-link {
+        color: white !important;
+    }
+    
+    .nav-item.active .nav-link i {
+        color: white !important;
+    }
+    
+    /* Dropdown Menu */
+    .collapse-inner {
+        border-radius: 0.35rem !important;
+    }
+    
+    .collapse-inner .collapse-item {
+        padding: 0.5rem 1rem !important;
+        margin: 0 0.5rem !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-size: 0.85rem !important;
+        white-space: nowrap !important;
+        border-radius: 0.35rem !important;
+    }
+    
+    .collapse-inner .collapse-item:hover,
+    .collapse-inner .collapse-item:focus {
+        color: white !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    .collapse-inner .collapse-item.active {
+        color: white !important;
+        font-weight: 800 !important;
+    }
+    
+    /* Content wrapper full width di mobile */
+    #content-wrapper {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* Overlay */
+    .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+        display: none;
+    }
+    
+    .mobile-overlay.show {
+        display: block;
+    }
+    
+    /* Toggle Button */
+    #sidebarToggleTop {
+        display: flex !important;
+    }
+    
+    /* Scrollbar styling */
+    #accordionSidebar::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    #accordionSidebar::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    #accordionSidebar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+    }
+    
+    #accordionSidebar::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+}
+/*--------------------------------------------------------------
+# btn
+--------------------------------------------------------------*/
+ .btn-teal {
+        background: #3498db;
+        color: white;
+        border: none;
+    }
+
+    .btn-teal:hover {
+        background: #3498db;
+        color: white;
+    }
+
+
+/*--------------------------------------------------------------
+# Login
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# profile
+--------------------------------------------------------------*/
+    .profile-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    .profile-header {
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+    .section-title {
+      margin-bottom: 30px;
+    }
+    .form-control {
+      padding: 10px 15px;
+      border-radius: 8px;
+    }
+    .back-btn {
+      margin-bottom: 20px;
+    }
+
+/*--------------------------------------------------------------
+# Testimonial
+--------------------------------------------------------------*/
+     .rating {
+        color: #ffc107;
+        font-size: 1.5rem;
+    }
+    
+    .testimonial-content {
+        line-height: 1.8;
+        color: #495057;
+        font-size: 1.1rem;
+    }

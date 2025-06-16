@@ -3,14 +3,17 @@
 @section('title', 'Testimoni Peserta')
 
 @section('content')
-<div class="testimonials-container">
+<a href="{{ route('welcome') }}" class="btn btn-outline-primary mb-4">
+    <i class="fas fa-arrow-left me-2"></i> Kembali</a>
+
+<div class="testimonials-container py-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card border-0 shadow-sm">
+                <div class="card">
                     <div class="card-header bg-gradient-primary text-white py-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                            <div class="mb-3 mb-md-0">
                                 <h3 class="fw-bold mb-0"><i class="fas fa-comments me-2"></i> Testimoni Peserta</h3>
                                 <p class="mb-0 mt-1">Bagikan pengalaman belajar Anda dengan peserta lain</p>
                             </div>
@@ -41,7 +44,7 @@
                             </a>
                         </div>
 
-                        @if($testimonials->isEmpty())
+                        @if($testimonials->isEmpty()))
                             <div class="empty-state text-center py-5">
                                 <div class="empty-state-icon mb-4">
                                     <i class="fas fa-comment-slash fa-4x text-muted opacity-25"></i>
@@ -53,7 +56,7 @@
                             <div class="row g-4">
                                 @foreach($testimonials as $testimonial)
                                     <div class="col-md-6 animate__animated animate__fadeIn">
-                                        <div class="card testimonial-card h-100 border-0 shadow-sm">
+                                        <div class="card testimonial-card h-100">
                                             <div class="card-body p-4">
                                                 <div class="d-flex align-items-center mb-3">
                                                     <div class="avatar bg-primary text-white rounded-circle me-3" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: bold;">
@@ -74,6 +77,14 @@
                                                 </div>
                                                 
                                                 <p class="testimonial-content">{{ $testimonial->content }}</p>
+
+                                                @if($testimonial->user_id == Auth::id())
+                                                    <div class="mt-3">
+                                                        <a href="{{ route('testimonials.edit', $testimonial) }}" class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-edit me-1"></i> Edit
+                                                        </a>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -90,51 +101,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    .testimonials-container {
-        padding: 3rem 0;
-    }
-    .bg-gradient-primary {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        border-radius: 12px 12px 0 0 !important;
-    }
-    
-    .testimonial-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 12px;
-    }
-    
-    .testimonial-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
-    }
-    
-    .rating {
-        color: #ffc107;
-        font-size: 1.1rem;
-    }
-    
-    .testimonial-content {
-        line-height: 1.6;
-        color: #555;
-    }
-    
-    .empty-state {
-        padding: 3rem 1rem;
-    }
-    
-    .empty-state-icon i {
-        opacity: 0.3;
-    }
-    
-    .pagination .page-item.active .page-link {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
-    }
-    
-    .pagination .page-link {
-        color: var(--primary-color);
-    }
-</style>
 @endsection

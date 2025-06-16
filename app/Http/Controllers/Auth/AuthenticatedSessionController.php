@@ -26,6 +26,17 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        // Check user status after authentication
+        if (!auth()->user()->isActive()) {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            
+            return back()->withErrors([
+                'email' => 'Akun Anda tidak aktif. Silakan hubungi administrator',
+            ]);
+        }
+
         $request->session()->regenerate();
 
         // Redirect based on user role

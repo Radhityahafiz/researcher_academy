@@ -3,14 +3,17 @@
 @section('title', 'Video Ditonton')
 
 @section('content')
-<div class="watched-videos-container">
+<a href="{{ route('welcome') }}" class="btn btn-outline-primary mb-4">
+    <i class="fas fa-arrow-left me-2"></i> Kembali</a>
+
+<div class="watched-videos-container py-4">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <div class="card border-0 shadow-sm">
+                <div class="card">
                     <div class="card-header bg-gradient-primary text-white py-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                            <div class="mb-3 mb-md-0">
                                 <h3 class="fw-bold mb-0"><i class="fas fa-video me-2"></i> Video Ditonton</h3>
                                 <p class="mb-0 mt-1">Daftar video pembelajaran yang telah Anda tonton</p>
                             </div>
@@ -24,8 +27,8 @@
                         @if($completedVideos->count() > 0)
                         <div class="row g-4">
                             @foreach($completedVideos as $video)
-                            <div class="col-md-6 animate__animated animate__fadeIn">
-                                <div class="card border-0 shadow-sm h-100 video-card">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 animate__animated animate__fadeIn">
+                                <div class="card h-100 video-card">
                                     <div class="video-thumbnail position-relative">
                                         @php
                                             $video_id = null;
@@ -50,7 +53,7 @@
                                                 <i class="fas fa-play-circle fa-3x text-white opacity-75"></i>
                                             </div>
                                         @else
-                                            <div class="invalid-thumbnail d-flex align-items-center justify-content-center bg-light">
+                                            <div class="invalid-thumbnail d-flex align-items-center justify-content-center bg-light" style="height: 180px;">
                                                 <i class="fas fa-exclamation-triangle fa-2x text-muted"></i>
                                             </div>
                                         @endif
@@ -64,7 +67,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <h5 class="fw-bold mb-1">{{ $video->title }}</h5>
+                                                <h5 class="fw-bold mb-1">{{ Str::limit($video->title, 50) }}</h5>
                                                 <p class="text-muted small mb-2">
                                                     <i class="fas fa-folder-open me-1"></i> 
                                                     {{ $video->category->name ?? 'Tanpa Kategori' }}
@@ -111,9 +114,6 @@
                             <div class="text-muted small">
                                 Menampilkan {{ $completedVideos->count() }} video
                             </div>
-                            <a href="{{ route('welcome') }}" class="btn btn-outline-primary">
-                                <i class="fas fa-arrow-left me-2"></i> Kembali ke Beranda
-                            </a>
                         </div>
                     </div>
                     @endif
@@ -122,70 +122,4 @@
         </div>
     </div>
 </div>
-
-<style>
-    .watched-videos-container {
-        padding: 3rem 0;
-    }
-    
-    .bg-gradient-primary {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        border-radius: 12px 12px 0 0 !important;
-    }
-    
-    .video-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 12px;
-        overflow: hidden;
-    }
-    
-    .video-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
-    }
-    
-    .video-thumbnail {
-        height: 180px;
-        overflow: hidden;
-        background-color: #000;
-    }
-    
-    .video-thumbnail img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        transition: opacity 0.3s ease;
-    }
-    
-    .video-card:hover .video-thumbnail img {
-        opacity: 0.8;
-    }
-    
-    .play-button {
-        transition: all 0.3s ease;
-    }
-    
-    .video-card:hover .play-button i {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-    
-    .invalid-thumbnail {
-        height: 180px;
-        width: 100%;
-    }
-    
-    .video-meta .badge {
-        font-weight: 400;
-        padding: 0.35rem 0.75rem;
-    }
-    
-    .empty-state {
-        padding: 3rem 1rem;
-    }
-    
-    .empty-state-icon i {
-        opacity: 0.3;
-    }
-</style>
 @endsection

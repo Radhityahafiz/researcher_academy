@@ -17,8 +17,8 @@ class CategoryController extends Controller
             'videos' => function($query) {
                 $query->orderBy('created_at', 'asc'); // Video terlama pertama
             },
-            'quizzes.questions' => function($query) {
-                $query->orderBy('created_at', 'asc'); // Kuis terlama pertama
+            'assignments' => function($query) {
+                $query->orderBy('created_at', 'asc');
             }
         ]);
         

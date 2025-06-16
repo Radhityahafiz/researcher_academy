@@ -5,25 +5,23 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Material;
 use App\Models\Video;
-use App\Models\Quiz;
 use App\Models\Testimonial;
+use App\Models\Assignment;
 use Illuminate\Support\Facades\Auth;
 
 class WelcomeController extends Controller
 {
     public function index()
 {
-    $categories = Category::withCount(['materials', 'videos', 'quizzes'])
+    $categories = Category::withCount(['materials', 'videos', 'assignments'])
         ->orderBy('created_at', 'asc')
         ->paginate(15, ['*'], 'categories_page');
         
     $videos = Video::latest()->paginate(15, ['*'], 'videos_page');
-    $quizzes = Quiz::withCount('questions')->latest()->paginate(15, ['*'], 'quizzes_page');
     
-    // Tambahkan ini untuk mengambil testimoni yang sudah disetujui
     $testimonials = Testimonial::approved()
         ->with('user')
-        ->latest()
+        ->orderBy('created_at', 'asc')
         ->take(5)
         ->get();
 
@@ -38,14 +36,13 @@ class WelcomeController extends Controller
         $completedVideos = $user->completedVideos()->count();
         $videoProgress = $totalVideos > 0 ? round(($completedVideos / $totalVideos) * 100) : 0;
 
-        $totalQuizzes = Quiz::count();
-        $completedQuizzes = $user->quizAttempts()->count();
-        $quizProgress = $totalQuizzes > 0 ? round(($completedQuizzes / $totalQuizzes) * 100) : 0;
+        $totalAssignments = Assignment::count();
+        $completedAssignments = $user->assignmentSubmissions()->count();
+        $assignmentProgress = $totalAssignments > 0 ? round(($completedAssignments / $totalAssignments) * 100) : 0;
 
         return view('welcome', [
             'categories' => $categories,
             'videos' => $videos,
-            'quizzes' => $quizzes,
             'testimonials' => $testimonials,
             'materialProgress' => $materialProgress,
             'completedMaterials' => $completedMaterials,
@@ -53,16 +50,15 @@ class WelcomeController extends Controller
             'videoProgress' => $videoProgress,
             'completedVideos' => $completedVideos,
             'totalVideos' => $totalVideos,
-            'quizProgress' => $quizProgress,
-            'completedQuizzes' => $completedQuizzes,
-            'totalQuizzes' => $totalQuizzes
+            'assignmentProgress' => $assignmentProgress,
+            'completedAssignments' => $completedAssignments,
+            'totalAssignments' => $totalAssignments
         ]);
     }
 
     return view('welcome', [
         'categories' => $categories,
         'videos' => $videos,
-        'quizzes' => $quizzes,
         'testimonials' => $testimonials
     ]);
 }

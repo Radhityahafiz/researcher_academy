@@ -1,13 +1,13 @@
 <!-- Sidebar -->
 <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-        <div class="sidebar-brand-icon" style="font-size: 1.5rem;">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center py-3" href="{{ route('dashboard') }}">
+        <div class="sidebar-brand-icon" style="font-size: 1.8rem;">
             <i class="fas fa-book-reader"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">
-            <div class="font-weight-bold" style="font-size: 1.2rem; line-height: 1.1;">Research</div>
-            <div style="font-size: 0.8rem; line-height: 1.1;">Academy</div>
+        <div class="sidebar-brand-text mx-3 text-center">
+            <div class="font-weight-bold" style="font-size: 1.3rem; line-height: 1.1;">Research</div>
+            <div style="font-size: 0.9rem; line-height: 1.1;">Academy</div>
         </div>
     </a>
 
@@ -18,7 +18,7 @@
     <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Beranda</span></a>
     </li>
 
     <!-- Divider -->
@@ -28,37 +28,51 @@
         @if(auth()->user()->isMentor())
             <!-- Heading -->
             <div class="sidebar-heading">
-                Teaching
+                Konten Pembelajaran
             </div>
+
+            <!-- Nav Item - Categories -->
+            <li class="nav-item {{ request()->routeIs('categories.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('categories.index') }}">
+                    <i class="fas fa-fw fa-tags"></i>
+                    <span>Kategori</span></a>
+            </li>
 
             <!-- Nav Item - Materials -->
             <li class="nav-item {{ request()->routeIs('materials.*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('materials.index') }}">
                     <i class="fas fa-fw fa-book"></i>
-                    <span>Materials</span></a>
+                    <span>Materi</span></a>
             </li>
 
             <!-- Nav Item - Videos -->
             <li class="nav-item {{ request()->routeIs('videos.*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('videos.index') }}">
                     <i class="fas fa-fw fa-video"></i>
-                    <span>Videos</span></a>
+                    <span>Video</span></a>
             </li>
 
-            <!-- Nav Item - Categories -->
-            <li class="nav-item {{ request()->routeIs('categories.*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('categories.index') }}">
-                    <i class="fas fa-fw fa-tags"></i>
-                    <span>Categories</span></a>
+            <!-- Nav Item - Assignments -->
+            <li class="nav-item {{ request()->routeIs('assignments.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('assignments.index') }}">
+                    <i class="fas fa-tasks"></i>
+                    <span>Penugasan</span></a>
             </li>
-
+           
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Management
+                Manajemen
             </div>
+
+            <!-- Nav Item - Participants -->
+<li class="nav-item {{ request()->routeIs('students.*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('students.index') }}">
+        <i class="fas fa-fw fa-users"></i>
+        <span>Kelola Peserta</span></a>
+</li>
 
             <!-- Nav Item - Testimonials -->
             <li class="nav-item {{ request()->routeIs('testimonials.dashboard') ? 'active' : '' }}">
@@ -68,13 +82,6 @@
                 </a>
             </li>
         @endif
-
-        <!-- Nav Item - Quizzes -->
-        <li class="nav-item {{ request()->routeIs('quizzes.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('quizzes.index') }}">
-                <i class="fas fa-fw fa-question-circle"></i>
-                <span>Quizzes</span></a>
-        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -86,10 +93,3 @@
     @endauth
 </ul>
 <!-- End of Sidebar -->
-
-<!-- Tambahkan ini di bagian bawah layout (misalnya di file blade layout atau langsung dalam file ini) -->
-<style>
-    #accordionSidebar {
-        background: linear-gradient(to bottom, #2980b9, #1abc9c) !important; /* Biru kehijauan */
-    }
-</style>

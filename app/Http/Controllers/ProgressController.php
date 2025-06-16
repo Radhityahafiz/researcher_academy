@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Material;
 use App\Models\Video;
-use App\Models\Quiz;
-use App\Models\QuizAttempt;
-use App\Models\UserProgress;
+use App\Models\Assignment;
+use App\Models\AssignmentSubmission;
 use Illuminate\Http\Request;
 
 class ProgressController extends Controller
@@ -16,23 +15,25 @@ class ProgressController extends Controller
     {
         $user = auth()->user();
         
-        // Hitung progress
+        // Hitung progress materi
         $totalMaterials = Material::count();
         $completedMaterials = $user->completedMaterials()->count();
         $materialProgress = $totalMaterials > 0 ? round(($completedMaterials / $totalMaterials) * 100) : 0;
 
+        // Hitung progress video
         $totalVideos = Video::count();
         $completedVideos = $user->completedVideos()->count();
         $videoProgress = $totalVideos > 0 ? round(($completedVideos / $totalVideos) * 100) : 0;
 
-        $totalQuizzes = Quiz::count();
-        $completedQuizzes = $user->quizAttempts()->count();
-        $quizProgress = $totalQuizzes > 0 ? round(($completedQuizzes / $totalQuizzes) * 100) : 0;
+        // Hitung progress tugas
+        $totalAssignments = Assignment::count();
+        $completedAssignments = $user->assignmentSubmissions()->count();
+        $assignmentProgress = $totalAssignments > 0 ? round(($completedAssignments / $totalAssignments) * 100) : 0;
 
         return view('progress.index', compact(
             'materialProgress', 'completedMaterials', 'totalMaterials',
             'videoProgress', 'completedVideos', 'totalVideos',
-            'quizProgress', 'completedQuizzes', 'totalQuizzes'
+            'assignmentProgress', 'completedAssignments', 'totalAssignments'
         ));
     }
 
@@ -54,12 +55,12 @@ class ProgressController extends Controller
         return view('participants.progress.videos', compact('completedVideos', 'allVideos'));
     }
 
-    public function showQuizzes()
+    public function showAssignments()
     {
         $user = auth()->user();
-        $quizAttempts = $user->quizAttempts()->with('quiz')->get();
-        $allQuizzes = Quiz::all();
+        $submissions = $user->assignmentSubmissions()->with('assignment.category')->get();
+        $allAssignments = Assignment::with('category')->get();
 
-        return view('participants.progress.quizzes', compact('quizAttempts', 'allQuizzes'));
+        return view('participants.progress.assignments', compact('submissions', 'allAssignments'));
     }
 }

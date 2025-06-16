@@ -1,61 +1,51 @@
 @extends('layouts.app')
 
-@section('title', 'Create Category')
+@section('title', 'Tambah Kategori Baru')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <h2>Create New Category</h2>
-            <div class="card">
+        <div class="col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Tambah Kategori Baru</h6>
+                    
+                </div>
                 <div class="card-body">
                     <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                        <div class="form-group">
+                            <label for="name">Nama Kategori</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
+                        <div class="form-group">
+                            <label for="description">Deskripsi</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description') }}</textarea>
                             @error('description')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="thumbnail" class="form-label">Thumbnail</label>
-                            <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail">
+                        <div class="form-group">
+                            <label for="thumbnail">Thumbnail</label>
+                            <input type="file" class="form-control-file @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail">
                             @error('thumbnail')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <small class="text-muted">Recommended size: 400x300px, Max size: 2MB</small>
+                            <small class="form-text text-muted">Ukuran rekomendasi: 400x300px, Maksimal 2MB</small>
                         </div>
                         
-                        <button type="submit" class="btn btn-teal">Create Category</button>
-                        <a href="{{ route('categories.index') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <a href="{{ route('categories.index') }}" class="btn btn-secondary">Batal</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    .btn-teal {
-        background: linear-gradient(to right, #2980b9, #1abc9c);
-        color: white;
-        border: none;
-    }
-
-    .btn-teal:hover {
-        background: linear-gradient(to right, #1abc9c, #2980b9);
-        color: white;
-    }
-</style>
 @endsection

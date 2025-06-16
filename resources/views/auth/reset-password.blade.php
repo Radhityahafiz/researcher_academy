@@ -3,67 +3,59 @@
 @section('title', 'Reset Password')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-reset-image"></div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Reset Your Password</h1>
-                                </div>
-                                
-                                <form method="POST" action="{{ route('password.store') }}" class="user">
-                                    @csrf
-                                    
-                                    <!-- Password Reset Token -->
-                                    <input type="hidden" name="token" value="{{ $request->route('token') }}">
-                                    
-                                    <div class="form-group">
-                                        <x-text-input id="email" type="email" name="email" :value="old('email', $request->email)" 
-                                            class="form-control form-control-user"
-                                            placeholder="Email Address" required autofocus autocomplete="username" />
-                                        <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <x-text-input id="password" type="password" name="password" 
-                                                class="form-control form-control-user"
-                                                placeholder="Password" required autocomplete="new-password" />
-                                            <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger" />
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <x-text-input id="password_confirmation" type="password" name="password_confirmation" 
-                                                class="form-control form-control-user"
-                                                placeholder="Repeat Password" required autocomplete="new-password" />
-                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-danger" />
-                                        </div>
-                                    </div>
-                                    
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
-                                        {{ __('Reset Password') }}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="row justify-content-center w-100">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-lg border-0" style="border-radius: 15px; backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.85);">
+                <div class="card-body p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <img src="{{ asset('Backend/img/logo_HRP.png') }}" alt="HRP Logo" style="width: 80px; height: auto;">
+                        <h2 class="h4 mt-3 mb-0 font-weight-bold text-primary">Atur Ulang Kata Sandi Anda</h2>
                     </div>
+
+                    @if (session('status'))
+                        <div class="alert alert-info mb-3 text-center">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('password.store') }}">
+                        @csrf
+
+                        <!-- Token -->
+                        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label small fw-bold text-secondary">Alamat Email</label>
+                            <x-text-input id="email" type="email" name="email" :value="old('email', $request->email)" 
+                                class="form-control rounded-pill"
+                                placeholder="Enter your email address" required autofocus autocomplete="username" />
+                            <x-input-error :messages="$errors->get('email')" class="mt-1 text-danger small text-center" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label small fw-bold text-secondary">Kata Sandi Baru</label>
+                            <x-text-input id="password" type="password" name="password" 
+                                class="form-control rounded-pill"
+                                placeholder="Enter your new password" required autocomplete="new-password" />
+                            <x-input-error :messages="$errors->get('password')" class="mt-1 text-danger small text-center" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label small fw-bold text-secondary">Konfirmasi Kata Sandi</label>
+                            <x-text-input id="password_confirmation" type="password" name="password_confirmation" 
+                                class="form-control rounded-pill"
+                                placeholder="Repeat your new password" required autocomplete="new-password" />
+                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1 text-danger small text-center" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold rounded-pill">
+                            {{ __('Reset Password') }}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-
-@push('styles')
-<style>
-    .bg-reset-image {
-        background: url("{{ asset('img/undraw_security_on_re_e491.svg') }}");
-        background-position: center;
-        background-size: cover;
-    }
-</style>
-@endpush

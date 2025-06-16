@@ -9,35 +9,24 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link href="{{ asset('frontend/assets/img/HRP.png') }}" rel="icon">
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('Backend/avendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="{{ asset('Backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('Backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-    @push('styles')
-<style>
-    .bg-gradient-teal {
-        background: linear-gradient(to right, #1abc9c, #2980b9);
-    }
-</style>
-@endpush
-
-
+    <link href="{{ asset('Backend/css/new-admin.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
 
-<body class="bg-gradient-teal">
+<body style="background: url('{{ asset('Backend/img/log_reg1.png') }}') no-repeat center center fixed; background-size: cover;">
+    <div class="overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 0;"></div>
 
-    <div class="container">
-
+    <div class="container position-relative" style="z-index: 1;">
         @yield('content')
-
     </div>
 
     <!-- Bootstrap core JavaScript-->
@@ -52,6 +41,4 @@
 
     @stack('scripts')
 </body>
-
 </html>
-
